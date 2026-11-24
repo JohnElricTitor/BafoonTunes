@@ -1,0 +1,60 @@
+# Builds the Windows installer and publishes it as a GitHub Release whenever main is pushed
+# with a version number (in package.json) that hasn't been released yet.
+# Installed copies of BafoonsTunes find the new release and update themselves.
+#
+# To release: bump "version" in package.json (or run `npm run release`), commit, push to main.
+# Pushes that don't change the version just update the code; no release is made.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version from package.json
+        id: version
+        shell: bash
+        run: echo "number=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Check whether this version is already released
+        id: check
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "v${{ steps.version.outputs.number }}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "v${{ steps.version.outputs.number }} is already released. Bump the version in package.json to make a new release."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Releasing v${{ steps.version.outputs.number }}"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.exists == 'false'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        if: steps.check.outputs.exists == 'false'
+        run: npm ci
+
+      - name: Build installer and publish release
+        if: steps.check.outputs.exists == 'false'
+        run: npx electron-builder --win nsis --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

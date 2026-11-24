@@ -32,11 +32,17 @@ npm install        # once
 npm start          # run the desktop app from source
 npm run smoke      # automated check: starts the app hidden, imports and removes a test pack, exits
 npm run icon       # rebuild build/icon.png from logo.jpg
-npm run dist       # build the installer into dist/ (not published)
-npm run release    # bump the version, build, and publish to GitHub Releases
+npm run dist       # build the installer into dist/ for local testing (not published)
+npm run release    # bump the version, commit, and push; GitHub builds and publishes it
 ```
 
-Releasing needs the GitHub CLI signed in once (`gh auth login`). `npm run release` bumps 1.0.0 → 1.0.1. Use `npm run release -- minor` for 1.1.0, or `-- current` to publish the version already in package.json. Commit and push your code as usual. Every installed copy picks up the new release the next time it's opened.
+### Releasing an update
+
+Releases are built by GitHub itself (`.github/workflows/release.yml`). Whenever `main` is pushed with a version number in `package.json` that hasn't been released yet, GitHub builds the installer and publishes it under [Releases](https://github.com/JohnElricTitor/BafoonTunes/releases). This takes a few minutes; watch it under [Actions](https://github.com/JohnElricTitor/BafoonTunes/actions). Every installed copy picks up the new release the next time it's opened.
+
+- **Easiest:** `npm run release` bumps 1.0.0 → 1.0.1, commits and pushes. Use `-- minor` for 1.1.0 or `-- major` for 2.0.0.
+- **By hand:** change `"version"` in `package.json`, commit, and push to main.
+- Pushes that don't change the version just save the code; no release is made.
 
 ## Browser version (still works)
 
