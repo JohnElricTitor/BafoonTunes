@@ -88,7 +88,8 @@ export function buildFx(ctx, out) {
     put(fb.gain, 0.2 + k[K.echo] * 0.35);
     delay.delayTime.setValueAtTime(Math.min(2.9, 0.75 * 60 / bpm), at);
   }
-  return { input, set };
+  // dispose(): cut this chain off, echo and reverb tails included
+  return { input, set, dispose: () => { try { vol.disconnect(); input.disconnect(); } catch { /* */ } } };
 }
 
 function makeImpulse(ctx, seconds) {
@@ -163,7 +164,7 @@ export function loadSound(id) {
       .then(() => {
         if (Array.isArray(s.loop)) for (const z of s.zones) makeLoop(z, s.loop);
         const peak = Math.max(...s.zones.map(z => peakOf(z.buffer)));
-        s.norm = peak > 0 ? Math.min(8, 0.7 / peak) : 1;
+        s.norm = s.raw ? 1 : peak > 0 ? Math.min(8, 0.7 / peak) : 1; // raw: keep a mic take's real level
         s.loaded = true;
         return s;
       })
@@ -216,6 +217,7 @@ export function startVoice(ctx, dest, sound, midi, vel, when, opts = {}) {
   src.buffer = zone.buffer;
   if (pitched) src.playbackRate.value = Math.pow(2, (midi - zone.midi) / 12);
   if (zone.loopEnd) { src.loop = true; src.loopStart = zone.loopStart; src.loopEnd = zone.loopEnd; }
+  else if (opts.loop) src.loop = true; // pad set to loop: repeat the whole sound
   if (opts.detune) src.detune.value = opts.detune;
   const g = ctx.createGain();
   const peak = velCurve(vel) * sound.norm * (sound.gain ?? 1) * (opts.gain ?? 1);
@@ -226,9 +228,12 @@ export function startVoice(ctx, dest, sound, midi, vel, when, opts = {}) {
   g.connect(dest);
   src.start(t);
   const voice = { src, g, sound, t, pitched, ended: false, released: false, onended: null };
+  const live = ctx === engine.ctx;
+  if (live) playing.add(voice); // so Stop can silence everything
   src.onended = () => {
     voice.ended = true;
     g.disconnect();
+    if (live) playing.delete(voice);
     if (voice.onended) voice.onended();
   };
   return voice;
@@ -271,6 +276,30 @@ export function click(ctx, dest, when, accent) {
 }
 
 // Library preview
+// Every voice sounding right now (pads, keys, loop playback, previews), for Stop.
+const playing = new Set();
+
+/**
+ * Silence everything at once: every sounding note, previews, and the echo / reverb tails
+ * (by swapping in a fresh effects chain, so nothing is left ringing).
+ */
+export function silenceAll() {
+  const ctx = engine.ctx;
+  if (!ctx) return;
+  const now = ctx.currentTime;
+  for (const v of playing) killVoice(v, now);
+  playing.clear();
+  previewVoice = null;
+  const old = engine.fx;
+  engine.fx = buildFx(ctx, ctx.destination);
+  for (const b of [engine.keysBus, engine.padsBus, engine.tracksBus]) {
+    try { b.disconnect(old.input); } catch { /* */ }
+    b.connect(engine.fx.input);
+  }
+  old.dispose();
+  applyKnobs(true);
+}
+
 let previewVoice = null;
 export async function previewSound(id) {
   const ctx = engine.ctx;

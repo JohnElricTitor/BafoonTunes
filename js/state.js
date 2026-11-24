@@ -34,6 +34,7 @@ export function defaultProject() {
 export const state = {
   ...defaultProject(),
   // runtime only (not saved)
+  selectedLayer: null, // the layer Record goes into
   bank: 0,
   octave: 0,
   fullLevel: false,

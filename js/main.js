@@ -1,7 +1,7 @@
 // App wiring: top bar, shortcuts, dialogs, MIDI hookup.
 import { state, emit, on, mod, clamp, noteName } from './state.js';
-import { engine, initAudio, loadManifest, applyKnobs } from './engine.js';
-import { tp, play, stop, togglePlay, toggleRecord, setBpm, currentBeat, loopBeats, updateTrackGains } from './transport.js';
+import { engine, initAudio, loadManifest, applyKnobs, silenceAll } from './engine.js';
+import { tp, play, stop, togglePlay, toggleRecord, setBpm, currentBeat, loopBeats, updateTrackGains, rebuildAllEffects } from './transport.js';
 import { noteOn, noteOff, setBend, setSustain, allNotesOff } from './instrument.js';
 import { initMidi, midi, cancelLearn, startPadSetup, startKeySync, cancelPadSetup, skipTeachStep, resetMidiSettings } from './midi.js';
 import { buildController, assignKit, shiftOctave } from './controller.js';
@@ -323,11 +323,22 @@ function setKnob(i, v) {
 on('setKnob', ({ i, v }) => setKnob(i, v));
 on('uiMod', y => setKnob(0, y));
 
+// ---------------------------------------------------------------- stop
+
+/** Stop means silence: the loop, every note still sounding, previews, and echo/reverb tails. */
+function stopEverything() {
+  stop();
+  allNotesOff();
+  silenceAll();
+  rebuildAllEffects(); // layer echo / reverb tails too
+}
+const playOrStop = () => (tp.playing ? stopEverything() : play(false));
+
 // ---------------------------------------------------------------- top bar
 
 function bindTopbar() {
-  $('btnPlay').onclick = () => togglePlay();
-  $('btnStop').onclick = () => { stop(); allNotesOff(); };
+  $('btnPlay').onclick = () => playOrStop();
+  $('btnStop').onclick = () => stopEverything();
   $('btnRec').onclick = () => toggleRecord();
 
   $('bpm').addEventListener('change', () => setBpm(+$('bpm').value || state.bpm));
@@ -402,8 +413,9 @@ function clockFrame() {
   if (tp.playing) {
     const b = currentBeat();
     const waiting = rec && b < rec.startBeat;
-    if (b < 0) {
-      clock.textContent = `${Math.ceil(-b)}…`;
+    const counting = b < 0 || b < tp.countInUntil;
+    if (counting) {
+      clock.textContent = `${Math.ceil(Math.max(0, tp.countInUntil) - b)}…`;
     } else if (waiting && rec.startBeat - b <= 4) {
       // last bar before a take starts: count it down like the count-in
       clock.textContent = `${Math.ceil(rec.startBeat - b)}…`;
@@ -411,13 +423,14 @@ function clockFrame() {
       const p = mod(b, loopBeats());
       clock.textContent = `${Math.floor(p / 4) + 1}.${Math.floor(p % 4) + 1}`;
     }
-    clock.classList.toggle('count', b < 0 || (waiting && rec.startBeat - b <= 4));
+    clock.classList.toggle('count', counting || (waiting && rec.startBeat - b <= 4));
     const recording = rec && b >= rec.startBeat;
     clock.classList.toggle('rec', !!recording);
     $('btnRec').classList.toggle('on', !!recording);
     $('btnRec').classList.toggle('armed', !!rec && !recording);
   } else {
-    clock.textContent = '1.1';
+    // stopped: show where the playhead is parked (bar.beat)
+    clock.textContent = `${Math.floor(tp.cursor / 4) + 1}.${Math.floor(tp.cursor % 4) + 1}`;
     clock.classList.remove('count', 'rec');
     $('btnRec').classList.remove('on', 'armed');
   }
@@ -456,7 +469,7 @@ function bindShortcuts() {
     if (!$('welcome').classList.contains('hidden')) return;
     if (e.repeat) { if (QWERTY[e.code] !== undefined || /^Digit[1-8]$/.test(e.code)) e.preventDefault(); return; }
 
-    if (e.code === 'Space') { e.preventDefault(); togglePlay(); return; }
+    if (e.code === 'Space') { e.preventDefault(); playOrStop(); return; }
     if (e.code === 'KeyR') { toggleRecord(); return; }
     if (e.code === 'KeyM') { $('btnMetro').click(); return; }
     if (e.code === 'KeyZ') { shiftOctave(-1); return; }

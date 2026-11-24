@@ -191,7 +191,11 @@ const baseName = p => p.split('/').pop().replace(/\.[^.]+$/, '');
  * Import a set of sources. A source is { kind: 'zip', name, blob } or
  * { kind: 'files', name, files: [{ path, blob }] }. Each source becomes one pack.
  */
-export async function importSources(sources, onProgress = () => {}) {
+/**
+ * opts.hidden: keep out of the sound list (mic takes); opts.raw: play at the recorded level
+ * instead of evening out the volume like other sounds.
+ */
+export async function importSources(sources, onProgress = () => {}, opts = {}) {
   const summary = { packs: 0, added: 0, skipped: {}, failed: 0, newPacks: [] };
   const skip = ext => { summary.skipped[ext || 'other'] = (summary.skipped[ext || 'other'] || 0) + 1; };
   if (!native) { try { await navigator.storage?.persist?.(); } catch { /* */ } }
@@ -209,7 +213,7 @@ export async function importSources(sources, onProgress = () => {}) {
       }
     }
     if (!files.length) continue;
-    await addPack(src.name, stripCommonRoot(files), summary, onProgress);
+    await addPack(src.name, stripCommonRoot(files), summary, onProgress, opts);
   }
   emit('library');
   return summary;
@@ -240,7 +244,7 @@ async function unzipAudio(blob, skip) {
   return Object.entries(entries).map(([path, data]) => ({ path, blob: new Blob([data]) }));
 }
 
-async function addPack(name, files, summary, onProgress) {
+async function addPack(name, files, summary, onProgress, opts = {}) {
   let packName = name || 'My Sounds';
   for (let n = 2; userLib.packs.some(p => p.name === packName); n++) packName = `${name || 'My Sounds'} ${n}`;
   const pack = {
@@ -278,6 +282,8 @@ async function addPack(name, files, summary, onProgress) {
         root: guessRoot(nm),
         size: blob.size,
       };
+      if (opts.hidden) meta.hidden = true;
+      if (opts.raw) meta.raw = true;
       if (native) {
         // desktop: write the file into the pack's folder right away
         try { meta.file = await native.writeFile(pack.id, storedPath, await blob.arrayBuffer()); }
@@ -333,7 +339,7 @@ export async function removePack(packId) {
 // ---------------------------------------------------------------- delete
 // (Renaming and organising live in layout.js; this file only stores the audio.)
 
-const META_KEYS = ['id', 'pack', 'name', 'group', 'role', 'isLoop', 'root', 'size', 'file'];
+const META_KEYS = ['id', 'pack', 'name', 'group', 'role', 'isLoop', 'root', 'size', 'file', 'hidden', 'raw'];
 const metaOf = s => Object.fromEntries(META_KEYS.filter(k => s[k] !== undefined).map(k => [k, s[k]]));
 
 /** Save a pack's current details and sound list (after a rename or delete). */

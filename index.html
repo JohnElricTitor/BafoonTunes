@@ -12,9 +12,12 @@
 <body>
   <div id="app">
     <header class="topbar">
-      <div class="brand"><img class="brand-logo" src="logo.jpg" alt="BafoonsTunes"><span class="brand-name">BafoonsTunes</span></div>
-      <input id="songName" class="song-name" spellcheck="false" title="Song name" maxlength="60">
+      <div class="tb-left">
+        <div class="brand"><img class="brand-logo" src="logo.jpg" alt="BafoonsTunes"><span class="brand-name">BafoonsTunes</span></div>
+        <input id="songName" class="song-name" spellcheck="false" title="Song name" maxlength="60">
+      </div>
 
+      <div class="tb-center">
       <div class="transport">
         <button id="btnStop" class="tbtn" title="Stop (Space)" aria-label="Stop">
           <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
@@ -50,19 +53,12 @@
         <button id="btnMetro" class="toggle" title="Metronome click (M)">Click</button>
         <button id="btnCount" class="toggle" title="Count in one bar before recording">Count-in</button>
       </div>
-
-      <div class="spacer"></div>
-
-      <div id="midiStatus" class="midi-status" title="MIDI controller status">
-        <span class="dot"></span><span class="label">Not connected</span>
       </div>
-      <button id="btnCalibrate" class="btn small" title="Re-learn your MPK: tap each pad, then press the far-left key">Calibrate</button>
 
-      <div class="file-btns">
+      <div class="tb-right file-btns">
         <button id="btnNew" class="btn">New</button>
         <button id="btnOpen" class="btn">Open</button>
         <button id="btnSave" class="btn" title="Save (Ctrl+S)">Save</button>
-        <button id="btnExport" class="btn primary">Export</button>
         <button id="btnHelp" class="btn icon" title="Help &amp; credits" aria-label="Help">?</button>
       </div>
     </header>
@@ -84,6 +80,13 @@
     <main class="stage">
       <section class="timeline" id="timeline"></section>
       <section class="device">
+        <div class="device-status">
+          <div id="midiStatus" class="midi-status" title="MIDI controller status">
+            <span class="dot"></span><span class="label">Not connected</span>
+          </div>
+          <button id="btnCalibrate" class="btn small" title="Re-learn your MPK: tap each pad, then press the far-left key">Calibrate</button>
+        </div>
+        <button id="btnExport" class="btn primary device-export" title="Export your song as an MP3 or WAV">Export</button>
         <div id="teachBar" class="teach-bar hidden" role="status">
           <span class="teach-pulse"></span>
           <div class="teach-text">
@@ -176,8 +179,9 @@
       <ol class="help-list">
         <li><b>Pick sounds.</b> Drag an instrument from the left onto the keyboard, or drag a drum onto a pad. Drag a whole kit onto the pads to fill all 8 at once.</li>
         <li><b>Play.</b> Use your MPK mini, click the pads and keys, or use your computer keyboard.</li>
-        <li><b>Record.</b> Press <b>●</b>. You get a one-bar count-in, then one loop is recorded. Each take becomes a track that keeps looping, so you can layer drums, then bass, then melody.</li>
-        <li><b>Mix.</b> Each track has mute (M), solo (S) and a volume slider. The knobs K1–K8 shape the overall sound.</li>
+        <li><b>Record.</b> Your song is made of <b>layers</b>. Add one with <b>+ MPK layer</b> (notes from the MPK, pads and keys) or <b>+ Mic layer</b> (a microphone) under the last layer, click a layer to select it, then press <b>●</b>. Recording <b>replaces</b> what's in the selected layer, and each layer keeps looping, so you can build drums, then bass, then melody, then vocals. Click or drag along the top of the timeline to choose where playing and recording start.</li>
+        <li><b>Pads.</b> Right-click a pad to choose how it plays: <b>Play while held</b>, <b>Play full sound</b> (orange), <b>Loop while held</b> (purple) or <b>Loop full sound</b> (blue: press to start, press again to stop). To record your voice onto a pad, click the small <b>●</b> on it, then hold the pad while you sing or play and let go to finish.</li>
+        <li><b>Mix.</b> Each track has mute (M), solo (S) and a volume slider. Drag an <b>Audio effect</b> (reverb, echo…) from the bottom of the left panel onto a layer, and click it on the layer to change how strong it is or remove it. The knobs K1–K8 shape the overall sound.</li>
         <li><b>Keep it.</b> Save writes a <code>.tunes</code> project file you can open later. Export makes an MP3 or WAV of your loop.</li>
       </ol>
       <h3>Knobs</h3>

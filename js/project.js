@@ -3,6 +3,7 @@ import { state, emit, on, defaultProject, KNOBS, TRACK_COLORS, uid } from './sta
 import { engine, loadSound } from './engine.js';
 import { stop, resetTrackNodes } from './transport.js';
 import { saveBlob } from './exporter.js';
+import { effectInfo } from './effects.js';
 
 const AUTOSAVE = 'tunes.autosave';
 let fileHandle = null;
@@ -26,7 +27,11 @@ export function serialize() {
     tracks: state.tracks.map(t => ({
       id: t.id, name: t.name, color: t.color, volume: t.volume, mute: t.mute, solo: t.solo,
       lengthBeats: t.lengthBeats,
-      events: t.events.map(({ s, n, v, g, r, t: time, d, p, h }) => ({ s, n, v, g, r, t: time, d, ...(p ? { p } : {}), ...(h ? { h } : {}) })),
+      kind: t.kind || 'mpk',
+      ...(t.kind === 'mic' ? { input: t.input || '', monitor: !!t.monitor } : {}),
+      ...(t.effects?.length ? { effects: t.effects.map(({ id, type, amount }) => ({ id, type, amount })) } : {}),
+      ...(t.autoName ? { autoName: true } : {}),
+      events: t.events.map(({ s, n, v, g, r, t: time, d, p, h, lp }) => ({ s, n, v, g, r, t: time, d, ...(p ? { p } : {}), ...(h ? { h } : {}), ...(lp ? { lp } : {}) })),
     })),
   };
 }
@@ -47,7 +52,7 @@ export function applyProject(p) {
   state.keyOverrides = {};
   for (const [k, v] of Object.entries(p.keyOverrides || {})) if (engine.sounds.has(v)) state.keyOverrides[k] = v;
   state.pads = Array.from({ length: 16 }, (_, i) => (engine.sounds.has(p.pads?.[i]) ? p.pads[i] : null));
-  state.padModes = Array.from({ length: 16 }, (_, i) => (['hold', 'full'].includes(p.padModes?.[i]) ? p.padModes[i] : null));
+  state.padModes = Array.from({ length: 16 }, (_, i) => (['hold', 'full', 'loop', 'loopfull'].includes(p.padModes?.[i]) ? p.padModes[i] : null));
   state.knobs = KNOBS.map((k, i) => num(p.knobs?.[i], k.def, 0, 1));
   state.tracks = (p.tracks || []).map((t, i) => ({
     id: t.id || uid(),
@@ -58,6 +63,12 @@ export function applyProject(p) {
     solo: !!t.solo,
     lengthBeats: [4, 8, 16, 32].includes(+t.lengthBeats) ? +t.lengthBeats : 16,
     events: (t.events || []).filter(e => e && typeof e.s === 'string' && Number.isFinite(e.t)),
+    kind: t.kind === 'mic' ? 'mic' : 'mpk',
+    ...(t.kind === 'mic' ? { input: String(t.input || ''), monitor: !!t.monitor } : {}),
+    effects: (Array.isArray(t.effects) ? t.effects : [])
+      .filter(f => f && effectInfo(f.type))
+      .map(f => ({ id: String(f.id || uid()), type: f.type, amount: num(f.amount, effectInfo(f.type).def, 0, 1) })),
+    ...(t.autoName ? { autoName: true } : {}),
   }));
   preloadProjectSounds();
   emit('project');

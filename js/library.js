@@ -15,6 +15,7 @@ import { startDrag, endDrag } from './controller.js';
 import { deleteSounds } from './userlib.js';
 import * as L from './layout.js';
 import { showMenu, closeMenu } from './menu.js';
+import { EFFECTS } from './effects.js';
 
 let listEl, searchEl;
 const COLLAPSE_KEY = 'tunes.libCollapsed';
@@ -35,6 +36,18 @@ export function buildLibrary() {
   on('assign', markUsed);
   on('project', markUsed);
   on('library', render);
+  on('revealSound', id => {
+    // unfold where it lives, scroll to it and flash it
+    for (const n of L.ancestorsOf(id)) collapsed.delete('n:' + n);
+    saveCollapsed();
+    searchEl.value = '';
+    render();
+    const row = listEl.querySelector(`.snd[data-id="${CSS.escape(id)}"]`);
+    if (!row) return;
+    row.scrollIntoView({ block: 'center' });
+    row.classList.add('flash');
+    setTimeout(() => row.classList.remove('flash'), 1600);
+  });
   document.getElementById('btnNewSection').onclick = () => createAndRename(L.newSection());
   // clear the drop highlight when a drag leaves the list or ends anywhere
   listEl.addEventListener('dragleave', e => { if (!listEl.contains(e.relatedTarget)) highlight(null); });
@@ -95,7 +108,42 @@ function render() {
 
   if (searching && !shown) listEl.innerHTML = '<div class="lib-empty">No sounds match that search.</div>';
   if (!L.layout.sections.length) listEl.innerHTML = '<div class="lib-empty">No sections yet. Click “+ New section” below.</div>';
+  listEl.appendChild(audioEffects(q));
   markUsed();
+}
+
+/** "Audio effects": drag one onto a layer to change how it sounds. */
+function audioEffects(q) {
+  const key = 'audio-effects';
+  const wrap = document.createElement('div');
+  wrap.className = 'lib-group lvl0 lib-fx' + (!q && collapsed.has(key) ? ' folded' : '');
+  const t = document.createElement('div');
+  t.className = 'lib-title-row lvl0';
+  t.innerHTML = '<span class="chev">▸</span><span class="ttl">Audio effects</span>';
+  t.title = 'Drag an effect onto a layer to change how it sounds';
+  t.onclick = () => {
+    wrap.classList.toggle('folded');
+    if (wrap.classList.contains('folded')) collapsed.add(key); else collapsed.delete(key);
+    saveCollapsed();
+  };
+  const body = document.createElement('div');
+  body.className = 'lib-group-body';
+  for (const fx of EFFECTS) {
+    if (q && !fx.name.toLowerCase().includes(q) && !fx.hint.toLowerCase().includes(q)) continue;
+    const row = document.createElement('div');
+    row.className = 'snd fx-item';
+    row.draggable = true;
+    row.title = `${fx.name}: ${fx.hint}. Drag onto a layer.`;
+    row.innerHTML = '<span class="dot fx"></span><span class="nm"></span><span class="tag">drag to layer</span>';
+    row.querySelector('.dot').style.background = fx.color;
+    row.querySelector('.nm').textContent = fx.name;
+    row.addEventListener('dragstart', e => startDrag(e, { type: 'effect', fx: fx.type, name: fx.name }));
+    row.addEventListener('dragend', endDrag);
+    body.appendChild(row);
+  }
+  if (q && !body.children.length) wrap.style.display = 'none';
+  wrap.append(t, body);
+  return wrap;
 }
 
 function emptyRow(text) {

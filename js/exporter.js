@@ -2,6 +2,7 @@
 import { state } from './state.js';
 import { buildFx, getSound, isPitched, loadSound, startVoice, releaseVoice } from './engine.js';
 import { loopBeats, trackAudible, trackGain } from './transport.js';
+import { buildChain } from './effects.js';
 
 export async function renderMix(loops) {
   const sr = 44100;
@@ -19,7 +20,9 @@ export async function renderMix(loops) {
     if (!trackAudible(tr)) continue;
     const g = oc.createGain();
     g.gain.value = trackGain(tr);
-    g.connect(fx.input);
+    const chain = buildChain(oc, tr.effects || [], state.bpm); // the layer's own effects
+    g.connect(chain.input);
+    chain.output.connect(fx.input);
     for (let k = 0; k * tr.lengthBeats < totalBeats; k++) {
       for (const e of tr.events) {
         const b = k * tr.lengthBeats + e.t;
@@ -27,7 +30,7 @@ export async function renderMix(loops) {
         const s = getSound(e.s);
         if (!s?.loaded) continue;
         const when = b * bd;
-        const v = startVoice(oc, g, s, e.n, e.v, when, { gain: e.g, pitched: !!e.p });
+        const v = startVoice(oc, g, s, e.n, e.v, when, { gain: e.g, pitched: !!e.p, loop: !!e.lp });
         if (v?.pitched) releaseVoice(v, when + Math.max(0.05, e.d) * bd, e.r);
         else if (v && e.h) releaseVoice(v, when + Math.max(0.05, e.d) * bd, 0.06);
       }

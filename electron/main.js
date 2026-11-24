@@ -241,9 +241,12 @@ if (UPDATE_CHECK) {
   app.whenReady().then(() => {
     Menu.setApplicationMenu(null);
     protocol.handle('app', serve);
-    // The MPK mini needs Web MIDI.
-    const allowed = new Set(['midi', 'midiSysex', 'clipboard-sanitized-write', 'fullscreen']);
-    session.defaultSession.setPermissionRequestHandler((_wc, perm, cb) => cb(allowed.has(perm)));
+    // The MPK mini needs Web MIDI; Mic layers need the microphone ('media', audio only).
+    const allowed = new Set(['midi', 'midiSysex', 'clipboard-sanitized-write', 'fullscreen', 'media']);
+    session.defaultSession.setPermissionRequestHandler((_wc, perm, cb, details) => {
+      if (perm === 'media') return cb((details?.mediaTypes || ['audio']).every(t => t === 'audio')); // microphone only, never the camera
+      cb(allowed.has(perm));
+    });
     session.defaultSession.setPermissionCheckHandler((_wc, perm) => allowed.has(perm));
     createWindow();
   });

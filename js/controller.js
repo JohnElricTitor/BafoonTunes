@@ -2,7 +2,8 @@
 // accepts sounds dropped from the library.
 import { state, emit, on, drag, KNOBS, noteName, clamp } from './state.js';
 import { engine, getSound, isPitched, loadSound } from './engine.js';
-import { noteOn, noteOff, setBend, keySoundId } from './instrument.js';
+import { noteOn, noteOff, setBend, keySoundId, padMode, PAD_MODES } from './instrument.js';
+import { padRec, togglePadRecord } from './padrec.js';
 import { showMenu } from './menu.js';
 import { startLearn, cancelLearn, startKeySync, midi } from './midi.js';
 
@@ -67,6 +68,7 @@ export function buildController(root) {
   on('bend', b => moveJoy(b, null));
   on('modWheel', m => moveJoy(null, m));
   on('teach', showTeach);
+  on('padRec', () => renderPads());
   on('midiReset', () => setOctave(0));
   // The far-left key of the MPK sends 48 at normal octave, 60 one octave up, and so on.
   on('lowestKey', n => {
@@ -179,6 +181,12 @@ function buildPads(root) {
     el('div', 'snd-bar', pad);
     const idx = () => state.bank * 8 + i;
 
+    // ● record straight onto this pad from the mic: click it, then hold the pad to record
+    const rec = el('button', 'pad-rec', pad);
+    rec.title = 'Record onto this pad from the mic: click, then hold the pad while you sing or play, let go to finish';
+    rec.addEventListener('pointerdown', e => { e.stopPropagation(); e.preventDefault(); });
+    rec.addEventListener('click', e => { e.stopPropagation(); togglePadRecord(idx()); });
+
     pad.addEventListener('pointerdown', e => {
       if (e.button !== 0) return;
       pad.setPointerCapture(e.pointerId);
@@ -194,12 +202,11 @@ function buildPads(root) {
       const n = idx();
       const s = getSound(state.pads[n]);
       if (!s) return;
-      // The tick shows what the pad does: every pad plays while held unless set to play fully.
-      const holds = state.padModes[n] !== 'full';
+      // The tick shows how the pad plays (Play while held unless changed).
+      const current = padMode(n);
       const setMode = m => { state.padModes[n] = m; renderPads(); emit('change'); };
       showMenu(e.clientX, e.clientY, [
-        { label: 'Play while held', checked: holds, run: () => setMode('hold') },
-        { label: 'Play full sound', checked: !holds, run: () => setMode('full') },
+        ...PAD_MODES.map(({ mode, label }) => ({ label, checked: current === mode, run: () => setMode(mode) })),
         '-',
         { label: 'Clear pad', danger: true, run: () => { state.pads[n] = null; state.padModes[n] = null; emit('assign'); emit('change'); } },
       ]);
@@ -275,12 +282,16 @@ function renderPads() {
     p.name.textContent = s ? s.name : 'Drop a sound';
     p.el.classList.toggle('empty', !s);
     p.el.style.setProperty('--snd', s ? s.color : 'transparent');
-    // orange outline = "Play full sound"; otherwise the bank colour (red A / green B)
-    const full = !!s && state.padModes[n] === 'full';
-    p.el.classList.toggle('full', full);
-    p.el.title = s
-      ? `${s.name} — ${full ? 'plays the full sound' : 'plays while you hold the pad'}. Right-click to change or clear.`
-      : 'Drag a sound here';
+    // Outline: bank colour (red A / green B) for Play while held; orange = Play full sound;
+    // purple = Loop while held; cyan = Loop full sound.
+    const mode = s ? padMode(n) : 'hold';
+    for (const m of ['full', 'loop', 'loopfull']) p.el.classList.toggle(m, mode === m);
+    p.el.classList.toggle('rec-armed', padRec.armed === n && padRec.recording !== n);
+    p.el.classList.toggle('rec-live', padRec.recording === n);
+    const how = PAD_MODES.find(x => x.mode === mode)?.label.toLowerCase();
+    p.el.title = padRec.armed === n
+      ? 'Ready to record: hold this pad and sing / play into the mic, let go to finish'
+      : s ? `${s.name} — ${how}. Right-click to change or clear.` : 'Drag a sound here, or click ● to record one';
     p.el.classList.remove('lit');
   });
   ui.root?.classList.toggle('bank-b', state.bank === 1);
@@ -553,11 +564,13 @@ export function startDrag(e, data) {
   e.dataTransfer.effectAllowed = 'copyMove';
   e.dataTransfer.setData('text/plain', data.id || data.name || '');
   const s = data.type === 'sound' ? getSound(data.id) : null;
-  if (data.type === 'kit') document.body.classList.add('dragging-kit');
+  if (data.type === 'effect') document.body.classList.add('dragging-effect');
+  else if (data.type === 'kit') document.body.classList.add('dragging-kit');
   else if (s) document.body.classList.add(isPitched(s) ? 'dragging-pitched' : 'dragging-oneshot');
 }
 export function endDrag() {
   drag.current = null;
-  document.body.classList.remove('dragging-kit', 'dragging-pitched', 'dragging-oneshot');
+  document.body.classList.remove('dragging-kit', 'dragging-pitched', 'dragging-oneshot', 'dragging-effect');
+  document.querySelectorAll('.fx-drop').forEach(n => n.classList.remove('fx-drop'));
   document.querySelectorAll('.drop-hover, .lib-drop').forEach(n => n.classList.remove('drop-hover', 'lib-drop'));
 }

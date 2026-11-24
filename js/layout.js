@@ -101,6 +101,18 @@ export function pathOf(id) {
   return `${sec?.name} › ${n.parent.name} › ${n.node.name}`;
 }
 
+/** The section / pack / group ids a sound sits inside (outermost first). */
+export function ancestorsOf(soundId) {
+  for (const s of layout.sections) {
+    if (s.sounds.includes(soundId)) return [s.id];
+    for (const p of s.packs) {
+      if (p.sounds.includes(soundId)) return [s.id, p.id];
+      for (const g of p.groups) if (g.sounds.includes(soundId)) return [s.id, p.id, g.id];
+    }
+  }
+  return [];
+}
+
 function detach(soundId) {
   for (const { node } of nodes()) {
     const i = node.sounds.indexOf(soundId);
@@ -138,7 +150,7 @@ export function reconcile() {
   }
   const removed = new Set(layout.removedBuiltins);
   for (const s of engine.sounds.values()) {
-    if (seen.has(s.id)) continue;
+    if (seen.has(s.id) || s.hidden) continue; // hidden = mic takes, kept out of the sound list
     if (s.category === 'user') placeUserSound(s);
     else if (!removed.has(s.id)) placeBuiltin(s);
     seen.add(s.id);
