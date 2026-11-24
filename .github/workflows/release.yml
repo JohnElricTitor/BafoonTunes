@@ -4,6 +4,9 @@
 #
 # To release: bump "version" in package.json (or run `npm run release`), commit, push to main.
 # Pushes that don't change the version just update the code; no release is made.
+#
+# The files are uploaded to a draft release first and only published once they're all there,
+# so the auto-updater never sees a half-uploaded release.
 name: Release
 
 on:
@@ -21,8 +24,10 @@ concurrency:
 jobs:
   release:
     runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Read version from package.json
         id: version
@@ -32,18 +37,18 @@ jobs:
       - name: Check whether this version is already released
         id: check
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if gh release view "v${{ steps.version.outputs.number }}" --repo "${{ github.repository }}" > /dev/null 2>&1; then
+          TAG="v${{ steps.version.outputs.number }}"
+          DRAFT=$(gh release view "$TAG" --repo "${{ github.repository }}" --json isDraft -q .isDraft 2>/dev/null || echo "none")
+          if [ "$DRAFT" = "false" ]; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "v${{ steps.version.outputs.number }} is already released. Bump the version in package.json to make a new release."
+            echo "$TAG is already released. Bump the version in package.json to make a new release."
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "Releasing v${{ steps.version.outputs.number }}"
+            echo "Releasing $TAG"
           fi
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: steps.check.outputs.exists == 'false'
         with:
           node-version: 22
@@ -53,8 +58,14 @@ jobs:
         if: steps.check.outputs.exists == 'false'
         run: npm ci
 
-      - name: Build installer and publish release
+      - name: Build installer and upload to a draft release
         if: steps.check.outputs.exists == 'false'
         run: npx electron-builder --win nsis --publish always
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish the release
+        if: steps.check.outputs.exists == 'false'
+        shell: bash
+        run: |
+          TAG="v${{ steps.version.outputs.number }}"
+          gh release edit "$TAG" --repo "${{ github.repository }}" --draft=false --latest --target "${{ github.sha }}"
+          echo "Published $TAG: https://github.com/${{ github.repository }}/releases/tag/$TAG"
