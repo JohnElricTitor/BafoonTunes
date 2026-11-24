@@ -71,12 +71,14 @@
       <div class="lib-head">
         <div class="lib-title">
           <h2>Sounds</h2>
-          <button id="btnImport" class="btn small" title="Add your own sounds: audio files, folders or .zip sample packs">+ Import</button>
         </div>
         <input id="search" type="search" placeholder="Search sounds…" autocomplete="off">
       </div>
       <div class="lib-list" id="libList"></div>
-      <div class="lib-foot">Click to hear · drag onto a pad, key or the KEYS strip · drag a title onto the pads to fill them · drop files here to import</div>
+      <div class="lib-foot">
+        <button id="btnNewSection" class="btn small" title="Add a new section to organise your sounds">+ New section</button>
+        <button id="btnImport" class="btn small primary" title="Add your own sounds: audio files, folders or .zip sample packs">+ Import</button>
+      </div>
     </aside>
 
     <main class="stage">
@@ -148,6 +150,7 @@
   <div id="importDlg" class="overlay hidden">
     <div class="dialog">
       <h2>Import your sounds</h2>
+      <p class="muted small" id="impTarget"></p>
       <div class="dropzone" id="importDrop">
         <b>Drop audio files, folders or .zip packs here</b>
         <span class="muted small">WAV, MP3, AIFF, FLAC, OGG and M4A. Sample packs made for FL Studio, Ableton, Reaper and other DAWs work when they contain audio files.</span>
@@ -195,6 +198,9 @@
           <button class="btn small" id="btnUpdate">Check for updates</button>
         </div>
       </div>
+      <h3>Organising sounds</h3>
+      <p class="muted small">The Sounds panel has <b>sections</b>, which hold <b>packs</b>, which hold <b>groups</b>. Click any title to fold it. Right-click a title or a sound to add, rename, import into or delete. Drag sounds onto a group, pack or section title to move them, and drag pack or group titles onto the pads to load them. Deleting a built-in sound only hides it.</p>
+      <button class="btn small" id="btnRestoreBuiltins">Restore built-in sounds</button>
       <h3>Sound credits</h3>
       <div id="credits" class="credits muted small"></div>
       <div class="dialog-actions"><button class="btn primary" data-close>Got it</button></div>

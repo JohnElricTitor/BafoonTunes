@@ -110,6 +110,7 @@ function scheduleRange(b0, b1) {
         tp.voices.add(v);
         v.onended = () => tp.voices.delete(v);
         if (v.pitched) releaseVoice(v, when + Math.max(0.05, e.d) * bd, e.r);
+        else if (e.h) releaseVoice(v, when + Math.max(0.05, e.d) * bd, 0.06); // pad held, then let go
       }
     }
   }

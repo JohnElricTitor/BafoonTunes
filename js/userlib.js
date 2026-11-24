@@ -192,7 +192,7 @@ const baseName = p => p.split('/').pop().replace(/\.[^.]+$/, '');
  * { kind: 'files', name, files: [{ path, blob }] }. Each source becomes one pack.
  */
 export async function importSources(sources, onProgress = () => {}) {
-  const summary = { packs: 0, added: 0, skipped: {}, failed: 0 };
+  const summary = { packs: 0, added: 0, skipped: {}, failed: 0, newPacks: [] };
   const skip = ext => { summary.skipped[ext || 'other'] = (summary.skipped[ext || 'other'] || 0) + 1; };
   if (!native) { try { await navigator.storage?.persist?.(); } catch { /* */ } }
 
@@ -308,6 +308,7 @@ async function addPack(name, files, summary, onProgress) {
   }
   userLib.packs.push(pack);
   for (const m of metas) register(m);
+  summary.newPacks.push({ pack, metas });
   summary.packs++;
   summary.added += metas.length;
 }
@@ -327,6 +328,54 @@ export async function removePack(packId) {
   userLib.packs = userLib.packs.filter(p => p.id !== packId);
   emit('library');
   return ids;
+}
+
+// ---------------------------------------------------------------- delete
+// (Renaming and organising live in layout.js; this file only stores the audio.)
+
+const META_KEYS = ['id', 'pack', 'name', 'group', 'role', 'isLoop', 'root', 'size', 'file'];
+const metaOf = s => Object.fromEntries(META_KEYS.filter(k => s[k] !== undefined).map(k => [k, s[k]]));
+
+/** Save a pack's current details and sound list (after a rename or delete). */
+async function persistPack(packId) {
+  const pack = userLib.packs.find(p => p.id === packId);
+  if (!pack) return;
+  const sounds = packSounds(packId);
+  pack.count = sounds.length;
+  pack.bytes = sounds.reduce((n, s) => n + (s.size || 0), 0);
+  const metas = sounds.map(metaOf);
+  if (native) {
+    await native.savePack(pack, metas);
+  } else {
+    const tx = (await db()).transaction(['packs', 'sounds'], 'readwrite');
+    tx.objectStore('packs').put(pack);
+    for (const m of metas) tx.objectStore('sounds').put(m);
+    await txDone(tx);
+  }
+}
+
+/** Delete sounds (the app's copies). A pack left empty is removed entirely. */
+export async function deleteSounds(ids) {
+  const byPack = new Map();
+  for (const id of ids) {
+    const s = engine.sounds.get(id);
+    if (!s || s.category !== 'user') continue;
+    if (!byPack.has(s.pack)) byPack.set(s.pack, []);
+    byPack.get(s.pack).push(s);
+  }
+  for (const [packId, sounds] of byPack) {
+    if (sounds.length === packSounds(packId).length) { await removePack(packId); continue; }
+    if (native) {
+      await native.deleteFiles(packId, sounds.map(s => s.file).filter(Boolean));
+    } else {
+      const tx = (await db()).transaction(['sounds', 'blobs'], 'readwrite');
+      for (const s of sounds) { tx.objectStore('sounds').delete(s.id); tx.objectStore('blobs').delete(s.id); }
+      await txDone(tx);
+    }
+    for (const s of sounds) engine.sounds.delete(s.id);
+    await persistPack(packId);
+  }
+  emit('library');
 }
 
 function loadScript(src) {

@@ -101,6 +101,20 @@ ipcMain.handle('lib:removePack', (_e, packId) => withLib(async lib => {
   return { save: true };
 }));
 
+ipcMain.handle('lib:deleteFiles', async (_e, packId, relPaths) => {
+  const dir = inside(soundsDir(), safeSegment(packId));
+  if (!dir) return;
+  for (const rel of relPaths) {
+    const full = inside(dir, rel);
+    if (!full) continue;
+    await fs.rm(full, { force: true });
+    // tidy up folders left empty (but never the pack folder itself)
+    for (let d = path.dirname(full); d.startsWith(dir + path.sep); d = path.dirname(d)) {
+      try { await fs.rmdir(d); } catch { break; } // fails (and stops) once a folder still has files
+    }
+  }
+});
+
 ipcMain.handle('lib:folder', () => soundsDir());
 ipcMain.handle('lib:reveal', async () => {
   await fs.mkdir(soundsDir(), { recursive: true });
@@ -263,6 +277,7 @@ function runSmokeTest(win) {
         await new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = 'vendor/fflate.min.js'; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); });
         const zip = fflate.zipSync({ 'Smoke Pack/Kicks/Kick 1.wav': new Uint8Array(ab), 'Smoke Pack/808s/808 F#.wav': new Uint8Array(ab), 'Smoke Pack/Presets/x.fst': new Uint8Array(4) });
         const sum = await importSources([{ kind: 'zip', name: 'Smoke Pack', blob: new Blob([zip]) }]);
+        window.__smokeImport = sum.newPacks;
         r.imported = sum.added; r.skipped = sum.skipped;
         const user = [...engine.sounds.values()].filter(x => x.category === 'user');
         r.userSoundUrls = user.map(x => x.zones[0].file);
@@ -278,6 +293,32 @@ function runSmokeTest(win) {
       const lib = JSON.parse(await fs.readFile(libraryFile(), 'utf8'));
       result.onDisk = (await fs.readdir(path.join(soundsDir(), result.packId), { recursive: true })).map(f => f.replace(/\\/g, '/'));
       result.libraryJson = { packs: lib.packs.length, sounds: lib.sounds.length };
+      // rename a sound, a folder and the pack, then delete one sound
+      result.layout = await win.webContents.executeJavaScript(`(async () => {
+        const { engine } = await import('./js/engine.js');
+        const ul = await import('./js/userlib.js');
+        const L = await import('./js/layout.js');
+        // place the import in a new section, then organise and edit it
+        const sec = L.newSection('Smoke Section');
+        L.placeImport(window.__smokeImport || [], sec);
+        const user = [...engine.sounds.values()].filter(x => x.category === 'user');
+        const kick = user.find(x => x.name === 'Kick 1'), bass = user.find(x => x.name === '808 F#');
+        const pack = L.find(sec).node.packs[0];
+        L.renameSound(bass.id, 'Big 808');
+        L.renameNode(pack.groups.find(g => g.name === '808s').id, 'Basses');
+        L.renameNode(pack.id, 'Renamed Pack');
+        const g = L.newGroup(pack.id, 'Faves');
+        L.moveSound(bass.id, g);
+        L.forgetSounds([kick.id]);
+        await ul.deleteSounds([kick.id]);
+        const p = L.find(sec).node.packs[0];
+        return { section: L.find(sec).node.name, pack: p.name, groups: p.groups.map(x => x.name + ':' + x.sounds.map(id => engine.sounds.get(id)?.name).join(',')), saved: !!localStorage.getItem('tunes.layout') };
+      })()`);
+      const lib2 = JSON.parse(await fs.readFile(libraryFile(), 'utf8'));
+      result.afterEdits = {
+        sounds: lib2.sounds.map(s => `${s.name} -> ${s.file}`),
+        onDisk: (await fs.readdir(path.join(soundsDir(), result.packId), { recursive: true })).map(f => f.replace(/\\/g, '/')),
+      };
       const removed = await win.webContents.executeJavaScript(`(async () => {
         const { userLib, removePack } = await import('./js/userlib.js');
         await removePack(userLib.packs[0].id);

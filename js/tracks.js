@@ -202,6 +202,7 @@ export async function renderTrack(tr, sr = 22050) {
     const when = e.t * bd;
     const v = startVoice(oc, oc.destination, s, e.n, e.v, when, { gain: e.g, pitched: !!e.p });
     if (v?.pitched) releaseVoice(v, when + Math.max(0.05, e.d) * bd, e.r);
+    else if (v && e.h) releaseVoice(v, when + Math.max(0.05, e.d) * bd, 0.06);
   }
   const buf = await oc.startRendering();
   const d = buf.getChannelData(0);

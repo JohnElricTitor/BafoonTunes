@@ -60,7 +60,9 @@ Everything you press, turn or move on the device shows on screen. The arpeggiato
 
 Click **+ Import** in the Sounds panel, or drop files onto it. It takes audio files (WAV, MP3, AIFF, FLAC, OGG, M4A), whole folders, and .zip sample packs. Packs made for FL Studio, Ableton, Reaper and other DAWs work when they contain audio files. Presets, racks, MIDI and project files are skipped.
 
-- Each import becomes a pack under **My sounds**, with its folders shown as titles.
+- The Sounds panel is organised as **sections → packs → groups → sounds**. Click a title to fold it. Right-click a title for New pack / New group, Import into here, Rename and Delete. Right-click a sound to rename or delete it. Drag sounds onto a title to move them, groups onto packs, packs onto sections, and sections onto each other to reorder. **+ New section** is at the bottom of the panel.
+- **+ Import** adds a pack to **My sounds**. Use **Import into here…** (or drop files onto a title) to add to a specific section, pack or group. Folders inside a pack become groups.
+- Renaming and organising never touch the audio files. Deleting a built-in sound only hides it (**Restore built-in sounds** in the ? menu).
 - Sounds are copied (see above), so they keep working if the originals move.
 - Drag a pack or folder title onto the pads to fill them. Kicks, snares and hats are recognised by name.
 - Drop a sample on the KEYS strip to play it across the keyboard. A note in the file name (like "808 F#") sets its pitch.

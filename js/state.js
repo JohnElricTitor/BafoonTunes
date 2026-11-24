@@ -25,6 +25,7 @@ export function defaultProject() {
     keyboardSound: null,
     keyOverrides: {},          // { midiNote: soundId }
     pads: Array(16).fill(null), // bank A = 0..7, bank B = 8..15
+    padModes: Array(16).fill(null), // null = auto (long sounds play while held), 'hold', or 'full'
     knobs: KNOBS.map(k => k.def),
     tracks: [],
   };

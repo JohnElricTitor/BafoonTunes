@@ -7,6 +7,7 @@ import { initMidi, midi, cancelLearn, startPadSetup, startKeySync, cancelPadSetu
 import { buildController, assignKit, shiftOctave } from './controller.js';
 import { buildLibrary } from './library.js';
 import { loadUserLibrary, importSources, sourcesFromFileList, sourcesFromDrop, storageKind, soundsFolder, revealFolder, userLib } from './userlib.js';
+import { loadLayout, placeImport, pathOf, restoreBuiltins, MINE } from './layout.js';
 import { buildTracks } from './tracks.js';
 import { renderMix, encodeWav, encodeMp3, saveBlob } from './exporter.js';
 import { initAutosave, restoreAutosave, newProject, saveProject, openProject, preloadProjectSounds } from './project.js';
@@ -24,6 +25,7 @@ async function boot() {
     return;
   }
   await loadUserLibrary(); // your imported packs, before the saved session refers to them
+  loadLayout();            // how sounds are organised in the side panel
   buildController($('mpk'));
   buildLibrary();
   bindImport();
@@ -141,6 +143,10 @@ function calibrate() {
   startPadSetup();
 }
 $('btnCalibrate').onclick = calibrate;
+$('btnRestoreBuiltins').onclick = () => {
+  const n = restoreBuiltins();
+  toast(n ? `Restored ${n} built-in sound${n === 1 ? '' : 's'}.` : 'All built-in sounds are already there.');
+};
 $('btnPadSetup').onclick = calibrate;
 $('btnMidiReset').onclick = () => {
   if (!confirm('Forget everything BafoonsTunes has learned about your MPK (pads, octave and knob links) and calibrate again?')) return;
@@ -176,10 +182,18 @@ const SKIP_NAMES = {
   txt: 'text files', pdf: 'PDFs', jpg: 'images', jpeg: 'images', png: 'images', gif: 'images', url: 'links', html: 'web pages',
 };
 
+// Where the next import goes: a section / pack / group id, or null for "My sounds".
+let importTarget = null;
+function setImportTarget(id) {
+  importTarget = id && pathOf(id) ? id : null;
+  $('impTarget').textContent = `Adding to: ${importTarget ? pathOf(importTarget) : pathOf(MINE) || 'My sounds'}`;
+}
+
 function bindImport() {
   const dlg = $('importDlg');
-  const open = () => { $('impStatus').textContent = ''; showStorage(); dlg.classList.remove('hidden'); };
-  $('btnImport').onclick = open;
+  const open = target => { setImportTarget(target); $('impStatus').textContent = ''; showStorage(); dlg.classList.remove('hidden'); };
+  $('btnImport').onclick = () => open(null);
+  on('importInto', ({ id }) => open(id));
   $('impFiles').onclick = () => $('impFilesInput').click();
   $('impFolder').onclick = () => $('impFolderInput').click();
   $('impReveal').onclick = () => revealFolder();
@@ -200,7 +214,11 @@ function bindImport() {
       if (!isFileDrag(e)) return;
       e.preventDefault();
       zone.classList.remove('file-over');
+      // dropped onto a section / pack / group title: import straight into it
+      const onTitle = e.target.closest?.('.lib-title-row')?.dataset.node;
+      if (zone !== $('importDrop')) setImportTarget(onTitle || null);
       const sources = await sourcesFromDrop(e.dataTransfer);
+      $('impStatus').textContent = '';
       dlg.classList.remove('hidden');
       runImport(sources);
     });
@@ -223,6 +241,8 @@ async function runImport(sources) {
       if (p.phase === 'unzip') status.textContent = `Unzipping “${p.name}”…`;
       else { status.textContent = `Adding “${p.name}”: ${p.done} of ${p.total} sounds`; fill.style.width = `${(p.done / p.total) * 100}%`; }
     });
+    const where = importTarget ? pathOf(importTarget) : 'My sounds';
+    if (s.newPacks.length) placeImport(s.newPacks, importTarget);
     const skipped = {};
     for (const [ext, n] of Object.entries(s.skipped)) {
       const label = SKIP_NAMES[ext] || `.${ext} files`;
@@ -230,7 +250,7 @@ async function runImport(sources) {
     }
     const skipText = Object.entries(skipped).map(([k, n]) => `${n} ${k}`).join(', ');
     status.textContent = s.added
-      ? `Added ${s.added} sound${s.added === 1 ? '' : 's'} in ${s.packs} pack${s.packs === 1 ? '' : 's'} — find ${s.packs === 1 ? 'it' : 'them'} under “My sounds”.`
+      ? `Added ${s.added} sound${s.added === 1 ? '' : 's'} to ${where}.`
         + (skipText ? ` Skipped (not audio): ${skipText}.` : '')
         + (s.failed ? ` ${s.failed} file${s.failed === 1 ? '' : 's'} couldn't be read.` : '')
       : `No audio files found${skipText ? ` (skipped: ${skipText})` : ''}.`;

@@ -8,6 +8,7 @@ contextBridge.exposeInMainWorld('bafoons', {
     writeFile: (packId, relPath, data) => ipcRenderer.invoke('lib:writeFile', packId, relPath, data),
     savePack: (pack, sounds) => ipcRenderer.invoke('lib:savePack', pack, sounds),
     removePack: packId => ipcRenderer.invoke('lib:removePack', packId),
+    deleteFiles: (packId, relPaths) => ipcRenderer.invoke('lib:deleteFiles', packId, relPaths),
     folder: () => ipcRenderer.invoke('lib:folder'),
     reveal: () => ipcRenderer.invoke('lib:reveal'),
   },

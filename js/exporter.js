@@ -29,6 +29,7 @@ export async function renderMix(loops) {
         const when = b * bd;
         const v = startVoice(oc, g, s, e.n, e.v, when, { gain: e.g, pitched: !!e.p });
         if (v?.pitched) releaseVoice(v, when + Math.max(0.05, e.d) * bd, e.r);
+        else if (v && e.h) releaseVoice(v, when + Math.max(0.05, e.d) * bd, 0.06);
       }
     }
   }

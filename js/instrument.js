@@ -11,6 +11,17 @@ let bend = 0;
 export const keySoundId = midi => state.keyOverrides[midi] || state.keyboardSound;
 export const releaseTime = () => 0.05 + Math.pow(state.knobs[K.release], 2) * 4;
 
+// Pads (and single sounds on keys) play only while held, unless a pad is set to
+// "Play full sound" (right-click the pad; it then gets an orange outline).
+const HOLD_FADE = 0.06; // quick fade when let go, so it doesn't click
+const FULL_RING = 1.5;  // instrument on a "Play full sound" pad: fade over this long after letting go
+
+/** Does this sound stop when the pad/key is released? mode: null/'hold' (default) or 'full'. */
+export function holdsWhilePressed(sound, mode) {
+  if (!sound || isPitched(sound)) return false; // instruments already stop on release (their own way)
+  return mode !== 'full';
+}
+
 /**
  * kind: 'k' = keyboard key (id = MIDI note), 'p' = pad (id = 0..15)
  * src: 'midi' | 'ui'
@@ -33,11 +44,12 @@ export function noteOn(kind, id, vel, src = 'ui') {
   const bus = kind === 'k' ? engine.keysBus : engine.padsBus;
 
   const prev = live.get(key);
-  if (prev && prev.pitched) killVoice(prev, ctx.currentTime);
+  if (prev && (prev.pitched || prev.hold)) killVoice(prev, ctx.currentTime);
   sustained.delete(key);
 
   // A one-shot sample set as the whole keyboard's sound plays pitched, like an instrument.
   const forcePitch = kind === 'k' && !state.keyOverrides[id] && !isPitched(sound);
+  const hold = !forcePitch && holdsWhilePressed(sound, kind === 'p' ? state.padModes[id] : null);
   const v = startVoice(ctx, bus, sound, note, vel, ctx.currentTime, {
     gain: group,
     detune: kind === 'k' ? bend * 200 : 0,
@@ -48,9 +60,14 @@ export function noteOn(kind, id, vel, src = 'ui') {
     engine.lfoDepth.connect(v.src.detune);
     v.onended = () => { try { engine.lfoDepth.disconnect(v.src.detune); } catch { /* */ } };
   }
+  v.hold = hold;
+  // An instrument on a pad set to "Play full sound" rings on after letting go.
+  const ringOut = kind === 'p' && isPitched(sound) && state.padModes[id] === 'full';
+  v.rel = ringOut ? FULL_RING : releaseTime();
   live.set(key, v);
-  const ev = { s: soundId, n: note, v: round(vel), g: round(group), r: round(releaseTime()) };
+  const ev = { s: soundId, n: note, v: round(vel), g: round(group), r: round(v.rel) };
   if (forcePitch) ev.p = 1;
+  if (hold) ev.h = 1; // recorded: stop at the same moment on playback
   recordOn(key, ev);
 }
 
@@ -65,7 +82,8 @@ function endNote(key) {
   const v = live.get(key);
   if (v) {
     live.delete(key);
-    if (v.pitched) releaseVoice(v, engine.ctx.currentTime, releaseTime());
+    if (v.pitched) releaseVoice(v, engine.ctx.currentTime, v.rel ?? releaseTime());
+    else if (v.hold) releaseVoice(v, engine.ctx.currentTime, HOLD_FADE);
   }
   recordOff(key);
 }

@@ -21,11 +21,12 @@ export function serialize() {
     keyboardSound: state.keyboardSound,
     keyOverrides: state.keyOverrides,
     pads: state.pads,
+    padModes: state.padModes,
     knobs: state.knobs,
     tracks: state.tracks.map(t => ({
       id: t.id, name: t.name, color: t.color, volume: t.volume, mute: t.mute, solo: t.solo,
       lengthBeats: t.lengthBeats,
-      events: t.events.map(({ s, n, v, g, r, t: time, d, p }) => (p ? { s, n, v, g, r, t: time, d, p } : { s, n, v, g, r, t: time, d })),
+      events: t.events.map(({ s, n, v, g, r, t: time, d, p, h }) => ({ s, n, v, g, r, t: time, d, ...(p ? { p } : {}), ...(h ? { h } : {}) })),
     })),
   };
 }
@@ -46,6 +47,7 @@ export function applyProject(p) {
   state.keyOverrides = {};
   for (const [k, v] of Object.entries(p.keyOverrides || {})) if (engine.sounds.has(v)) state.keyOverrides[k] = v;
   state.pads = Array.from({ length: 16 }, (_, i) => (engine.sounds.has(p.pads?.[i]) ? p.pads[i] : null));
+  state.padModes = Array.from({ length: 16 }, (_, i) => (['hold', 'full'].includes(p.padModes?.[i]) ? p.padModes[i] : null));
   state.knobs = KNOBS.map((k, i) => num(p.knobs?.[i], k.def, 0, 1));
   state.tracks = (p.tracks || []).map((t, i) => ({
     id: t.id || uid(),

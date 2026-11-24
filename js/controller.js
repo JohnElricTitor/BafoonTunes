@@ -3,6 +3,7 @@
 import { state, emit, on, drag, KNOBS, noteName, clamp } from './state.js';
 import { engine, getSound, isPitched, loadSound } from './engine.js';
 import { noteOn, noteOff, setBend, keySoundId } from './instrument.js';
+import { showMenu } from './menu.js';
 import { startLearn, cancelLearn, startKeySync, midi } from './midi.js';
 
 // Geometry taken from a product photo of the device (pixels); converted to %.
@@ -40,6 +41,7 @@ function label(root, text, x, y, cls = '') {
 }
 
 export function buildController(root) {
+  ui.root = root;
   root.innerHTML = '';
   root.oncontextmenu = e => e.preventDefault();
 
@@ -189,7 +191,18 @@ function buildPads(root) {
     });
     pad.addEventListener('contextmenu', e => {
       e.preventDefault();
-      if (state.pads[idx()]) { state.pads[idx()] = null; emit('assign'); emit('change'); }
+      const n = idx();
+      const s = getSound(state.pads[n]);
+      if (!s) return;
+      // The tick shows what the pad does: every pad plays while held unless set to play fully.
+      const holds = state.padModes[n] !== 'full';
+      const setMode = m => { state.padModes[n] = m; renderPads(); emit('change'); };
+      showMenu(e.clientX, e.clientY, [
+        { label: 'Play while held', checked: holds, run: () => setMode('hold') },
+        { label: 'Play full sound', checked: !holds, run: () => setMode('full') },
+        '-',
+        { label: 'Clear pad', danger: true, run: () => { state.pads[n] = null; state.padModes[n] = null; emit('assign'); emit('change'); } },
+      ]);
     });
 
     // drag a pad's sound to another pad
@@ -221,6 +234,7 @@ function buildPads(root) {
 
 export function assignPad(i, id) {
   state.pads[i] = id;
+  state.padModes[i] = null; // a new sound starts as "Play while held"
   loadSound(id);
   emit('assign'); emit('change');
 }
@@ -244,7 +258,11 @@ export function assignKit(ids, name, bank = state.bank, silent = false) {
       if (s) { used.add(s.id); slots[i] = s.id; }
     }
   }
-  slots.forEach((id, i) => { state.pads[bank * 8 + i] = id; if (id) loadSound(id); });
+  slots.forEach((id, i) => {
+    state.pads[bank * 8 + i] = id;
+    state.padModes[bank * 8 + i] = null;
+    if (id) loadSound(id);
+  });
   if (silent) return;
   emit('assign'); emit('change');
   emit('toast', `${name} loaded onto pad bank ${bank ? 'B' : 'A'}${sounds.length > 8 ? ' (first 8 sounds)' : ''}.`);
@@ -252,13 +270,20 @@ export function assignKit(ids, name, bank = state.bank, silent = false) {
 
 function renderPads() {
   ui.pads.forEach((p, i) => {
-    const s = getSound(state.pads[state.bank * 8 + i]);
+    const n = state.bank * 8 + i;
+    const s = getSound(state.pads[n]);
     p.name.textContent = s ? s.name : 'Drop a sound';
     p.el.classList.toggle('empty', !s);
     p.el.style.setProperty('--snd', s ? s.color : 'transparent');
-    p.el.title = s ? `${s.name} — right-click to clear` : 'Drag a sound here';
+    // orange outline = "Play full sound"; otherwise the bank colour (red A / green B)
+    const full = !!s && state.padModes[n] === 'full';
+    p.el.classList.toggle('full', full);
+    p.el.title = s
+      ? `${s.name} — ${full ? 'plays the full sound' : 'plays while you hold the pad'}. Right-click to change or clear.`
+      : 'Drag a sound here';
     p.el.classList.remove('lit');
   });
+  ui.root?.classList.toggle('bank-b', state.bank === 1);
   if (ui.bankBtn) {
     // Like the MK2: red = bank A, green = bank B.
     ui.bankBtn.classList.toggle('lit', state.bank === 0);
@@ -514,7 +539,8 @@ export function startDrag(e, data) {
   e.dataTransfer.effectAllowed = 'copy';
   e.dataTransfer.setData('text/plain', data.id || data.name || '');
   const s = data.type === 'sound' ? getSound(data.id) : null;
-  document.body.classList.add(data.type === 'kit' ? 'dragging-kit' : isPitched(s) ? 'dragging-pitched' : 'dragging-oneshot');
+  if (data.type === 'kit') document.body.classList.add('dragging-kit');
+  else if (s) document.body.classList.add(isPitched(s) ? 'dragging-pitched' : 'dragging-oneshot');
 }
 export function endDrag() {
   drag.current = null;
