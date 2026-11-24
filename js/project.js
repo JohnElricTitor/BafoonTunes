@@ -176,14 +176,21 @@ export async function openProject() {
     });
     if (!text) return;
   }
+  openProjectText(text, { handle, path: openedPath });
+}
+
+/** Open a project from its file contents (Open button, or a .tunes double-clicked in Windows). */
+export function openProjectText(text, { handle = null, path = null } = {}) {
   try {
     applyProject(JSON.parse(text));
     fileHandle = handle;
-    filePath = openedPath;
+    filePath = path;
     autosaveNow();
     emit('toast', `Opened “${state.name}”.`);
+    return true;
   } catch (e) {
-    emit('toast', e.message || 'Could not open that file.');
+    emit('toast', e instanceof SyntaxError ? 'That file is not a BafoonsTunes project.' : e.message || 'Could not open that file.');
+    return false;
   }
 }
 

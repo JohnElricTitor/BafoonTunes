@@ -10,7 +10,7 @@ import { loadUserLibrary, importSources, sourcesFromFileList, sourcesFromDrop, s
 import { loadLayout, placeImport, pathOf, restoreBuiltins, MINE } from './layout.js';
 import { buildTracks } from './tracks.js';
 import { renderMix, encodeWav, encodeMp3, saveBlob } from './exporter.js';
-import { initAutosave, restoreAutosave, newProject, saveProject, openProject, preloadProjectSounds } from './project.js';
+import { initAutosave, restoreAutosave, newProject, saveProject, openProject, openProjectText, preloadProjectSounds } from './project.js';
 
 const $ = id => document.getElementById(id);
 
@@ -36,6 +36,13 @@ async function boot() {
   initAutosave();
 
   if (!restoreAutosave()) newProject(starterSetup());
+  // Desktop: a .tunes file double-clicked in Windows opens here (at launch, or while running).
+  const files = window.bafoons?.files;
+  if (files?.pending) {
+    const f = await files.pending();
+    if (f) openProjectText(f.text, { path: f.path });
+    files.onOpen(f => { openProjectText(f.text, { path: f.path }); syncTopbar(); });
+  }
   syncTopbar();
   applyKnobs(true);
 

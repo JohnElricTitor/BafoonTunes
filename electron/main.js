@@ -17,6 +17,7 @@ const { autoUpdater } = require('electron-updater');
 const SMOKE = process.argv.includes('--smoke-test');
 const UPDATE_CHECK = process.argv.includes('--update-check'); // test: print what the updater sees, then quit
 if (SMOKE) app.setPath('userData', path.join(app.getPath('temp'), 'bafoonstunes-smoke'));
+else if (process.env.BAFOONS_TEST_PROFILE) app.setPath('userData', process.env.BAFOONS_TEST_PROFILE); // testing without touching your songs
 
 const APP_DIR = path.join(__dirname, '..');
 const soundsDir = () => path.join(app.getPath('userData'), 'My Sounds');
@@ -138,6 +139,20 @@ ipcMain.handle('file:save', async (e, { defaultName, filters, data, path: known 
   return { path: target, name: path.basename(target) };
 });
 
+// Double-clicking a .tunes file starts the app with its path on the command line (or, if the
+// app is already open, hands that command line to it via 'second-instance').
+const tunesFileIn = argv => argv.slice(1).find(a => /\.tunes$/i.test(a) && !a.startsWith('-'));
+async function readTunes(p) {
+  try { return { path: p, name: path.basename(p), text: await fs.readFile(p, 'utf8') }; }
+  catch (e) { console.warn('could not read', p, e.message); return null; }
+}
+let launchFile = tunesFileIn(process.argv);
+ipcMain.handle('file:pending', async () => {
+  const p = launchFile;
+  launchFile = null;
+  return p ? readTunes(p) : null;
+});
+
 ipcMain.handle('file:open', async (e, { filters }) => {
   const win = BrowserWindow.fromWebContents(e.sender);
   const r = await dialog.showOpenDialog(win, { properties: ['openFile'], filters, defaultPath: app.getPath('documents') });
@@ -233,9 +248,14 @@ if (UPDATE_CHECK) {
 } else if (!SMOKE && !app.requestSingleInstanceLock()) {
   app.quit();
 } else {
-  app.on('second-instance', () => {
+  app.on('second-instance', async (_e, argv) => {
     const w = BrowserWindow.getAllWindows()[0];
-    if (w) { if (w.isMinimized()) w.restore(); w.focus(); }
+    if (!w) return;
+    if (w.isMinimized()) w.restore();
+    w.focus();
+    const p = tunesFileIn(argv);
+    const file = p && await readTunes(p);
+    if (file && !w.isDestroyed()) w.webContents.send('file:opened', file);
   });
 
   app.whenReady().then(() => {

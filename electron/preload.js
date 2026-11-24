@@ -15,6 +15,9 @@ contextBridge.exposeInMainWorld('bafoons', {
   files: {
     save: opts => ipcRenderer.invoke('file:save', opts),
     open: opts => ipcRenderer.invoke('file:open', opts),
+    // a .tunes file double-clicked in Windows: the one the app was launched with, and later ones
+    pending: () => ipcRenderer.invoke('file:pending'),
+    onOpen: cb => ipcRenderer.on('file:opened', (_e, file) => cb(file)),
   },
   updates: {
     version: () => ipcRenderer.invoke('app:version'),
