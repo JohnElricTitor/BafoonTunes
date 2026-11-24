@@ -44,6 +44,7 @@ export function loadLayout() {
 }
 
 function save() {
+  if (window.__tunesResetting) return; // factory reset in progress
   try { localStorage.setItem(KEY, JSON.stringify(layout)); } catch (e) { console.warn('could not save the sound layout', e); }
 }
 function changed() { save(); emit('library'); }

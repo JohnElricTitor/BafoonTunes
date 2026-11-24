@@ -241,7 +241,7 @@ export function newLayer(kind = 'mpk') {
     lengthBeats: loopBeats(),
     events: [],
   };
-  if (kind === 'mic') { tr.input = ''; tr.monitor = false; }
+  if (kind === 'mic') tr.monitor = false;
   state.tracks.push(tr);
   emit('tracks');
   selectLayer(tr.id, true);

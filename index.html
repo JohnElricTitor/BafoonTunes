@@ -59,7 +59,7 @@
         <button id="btnNew" class="btn">New</button>
         <button id="btnOpen" class="btn">Open</button>
         <button id="btnSave" class="btn" title="Save (Ctrl+S)">Save</button>
-        <button id="btnHelp" class="btn icon" title="Help &amp; credits" aria-label="Help">?</button>
+        <button id="btnHelp" class="btn icon" title="Settings and help" aria-label="Settings and help"><svg class="gear" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94a7.07 7.07 0 0 0 0-1.88l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.03 7.03 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 13.9 2.4h-3.8a.5.5 0 0 0-.49.42l-.36 2.54c-.58.24-1.12.55-1.62.94l-2.39-.96a.5.5 0 0 0-.61.22L2.71 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.07 7.07 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.31.61.22l2.39-.96c.5.39 1.04.7 1.62.94l.36 2.54c.04.24.25.42.49.42h3.8c.24 0 .45-.18.49-.42l.36-2.54c.58-.24 1.12-.55 1.62-.94l2.39.96c.22.09.48 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.6a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2Z"/></svg></button>
       </div>
     </header>
 
@@ -175,26 +175,24 @@
   <!-- Help dialog -->
   <div id="helpDlg" class="overlay hidden">
     <div class="dialog wide">
-      <h2>How BafoonsTunes works</h2>
-      <ol class="help-list">
-        <li><b>Pick sounds.</b> Drag an instrument from the left onto the keyboard, or drag a drum onto a pad. Drag a whole kit onto the pads to fill all 8 at once.</li>
-        <li><b>Play.</b> Use your MPK mini, click the pads and keys, or use your computer keyboard.</li>
-        <li><b>Record.</b> Your song is made of <b>layers</b>. Add one with <b>+ MPK layer</b> (notes from the MPK, pads and keys) or <b>+ Mic layer</b> (a microphone) under the last layer, click a layer to select it, then press <b>●</b>. Recording <b>replaces</b> what's in the selected layer, and each layer keeps looping, so you can build drums, then bass, then melody, then vocals. Click or drag along the top of the timeline to choose where playing and recording start.</li>
-        <li><b>Pads.</b> Right-click a pad to choose how it plays: <b>Play while held</b>, <b>Play full sound</b> (orange), <b>Loop while held</b> (purple) or <b>Loop full sound</b> (blue: press to start, press again to stop). To record your voice onto a pad, click the small <b>●</b> on it, then hold the pad while you sing or play and let go to finish.</li>
-        <li><b>Mix.</b> Each track has mute (M), solo (S) and a volume slider. Drag an <b>Audio effect</b> (reverb, echo…) from the bottom of the left panel onto a layer, and click it on the layer to change how strong it is or remove it. The knobs K1–K8 shape the overall sound.</li>
-        <li><b>Keep it.</b> Save writes a <code>.tunes</code> project file you can open later. Export makes an MP3 or WAV of your loop.</li>
-      </ol>
-      <h3>Knobs</h3>
-      <p class="muted small">K1 Vibrato (also the joystick up) · K2 Keys volume · K3 Pads volume · K4 Master volume · K5 Tone · K6 Reverb · K7 Echo · K8 Release (how long keys ring). Double-click a knob to reset it. Right-click a knob, then turn a knob on your MPK to link them.</p>
+      <h2>Settings and help</h2>
+
+      <h3 id="micSection">Microphone</h3>
+      <p class="muted small" id="micStatus">Checking the microphone…</p>
+      <div class="help-btns mic-settings">
+        <button class="btn" id="btnMicAllow">Allow microphone</button>
+        <button class="btn hidden" id="btnMicWindows">Open Windows microphone settings</button>
+        <select id="micSelect" class="mic-select" title="The microphone Mic layers and pad recordings use"><option value="">Default mic</option></select>
+        <div class="mic-meter" id="micMeter" title="Mic level: speak or sing to test it"><i></i></div>
+      </div>
+
       <h3>Your MPK mini</h3>
-      <p class="muted small">If the keys on screen don't line up with your MPK (for example after using its OCTAVE buttons), click <b>Match keys</b> above the on-screen keyboard and press the far-left key on your MPK. If pads show up as keys or land on the wrong pad, click <b>Calibrate</b> at the top: tap each pad once, then press the far-left key. <b>Reset MPK settings</b> forgets everything learned (pads, octave, knob links) and starts fresh.</p>
+      <p class="muted small">If pads show up as keys or land on the wrong pad, click <b>Calibrate MPK</b>: tap each pad once, then press the far-left key. <b>Reset MPK settings</b> forgets everything learned (pads, octave, knob links) and starts fresh.</p>
       <div class="help-btns">
         <button class="btn" id="btnPadSetup">Calibrate MPK</button>
         <button class="btn" id="btnMidiReset" title="Forget the learned pads, octave and knob links, then calibrate from scratch">Reset MPK settings</button>
       </div>
-      <h3>MIDI monitor</h3>
-      <p class="muted small">Shows what your MPK sends, newest at the top. Press, turn or hit anything to see it here.</p>
-      <pre id="midiLog" class="midi-log">Nothing yet. Press something on your MPK.</pre>
+
       <div class="app-version hidden" id="appVersionRow">
         <h3>Updates</h3>
         <div class="help-btns">
@@ -202,12 +200,52 @@
           <button class="btn small" id="btnUpdate">Check for updates</button>
         </div>
       </div>
-      <h3>Organising sounds</h3>
+
+      <h3>Sounds</h3>
+      <p class="muted small"><b>Restore built-in sounds</b> brings back built-in sounds you deleted. <b>Factory reset</b> deletes all your imported packs and recordings and puts everything back to how it was when installed.</p>
+      <div class="help-btns">
+        <button class="btn" id="btnRestoreBuiltins">Restore built-in sounds</button>
+        <button class="btn danger" id="btnFactoryReset">Factory reset…</button>
+      </div>
+
+      <h3>MIDI monitor</h3>
+      <p class="muted small">Shows what your MPK sends, newest at the top. Press, turn or hit anything to see it here.</p>
+      <pre id="midiLog" class="midi-log">Nothing yet. Press something on your MPK.</pre>
+
+      <h3>Tutorial</h3>
+      <ol class="help-list">
+        <li><b>Pick sounds.</b> Drag an instrument from the left onto the keyboard, or drag a drum onto a pad. Drag a whole kit onto the pads to fill all 8 at once.</li>
+        <li><b>Play.</b> Use your MPK mini, click the pads and keys, or use your computer keyboard.</li>
+        <li><b>Record.</b> Your song is made of <b>layers</b>. Add one with <b>+ MPK layer</b> (notes from the MPK, pads and keys) or <b>+ Mic layer</b> (the microphone chosen at the top of this panel) under the last layer, click a layer to select it, then press <b>●</b>. Recording <b>replaces</b> what's in the selected layer, and each layer keeps looping, so you can build drums, then bass, then melody, then vocals. Click or drag along the top of the timeline to choose where playing and recording start.</li>
+        <li><b>Pads.</b> Right-click a pad to choose how it plays: <b>Play while held</b>, <b>Play full sound</b> (orange), <b>Loop while held</b> (purple) or <b>Loop full sound</b> (blue: press to start, press again to stop). To record your voice onto a pad, click the small <b>●</b> on it, then hold the pad while you sing or play and let go to finish.</li>
+        <li><b>Mix.</b> Each track has mute (M), solo (S) and a volume slider. Drag an <b>Audio effect</b> (reverb, echo…) from the bottom of the left panel onto a layer, and click it on the layer to change how strong it is or remove it. The knobs K1–K8 shape the overall sound.</li>
+        <li><b>Keep it.</b> Save writes a <code>.tunes</code> project file you can open later. Export makes an MP3 or WAV of your loop.</li>
+      </ol>
+      <h4>Knobs</h4>
+      <p class="muted small">K1 Vibrato (also the joystick up) · K2 Keys volume · K3 Pads volume · K4 Master volume · K5 Tone · K6 Reverb · K7 Echo · K8 Release (how long keys ring). Double-click a knob to reset it. Right-click a knob, then turn a knob on your MPK to link them.</p>
+      <h4>Keys out of line?</h4>
+      <p class="muted small">If the keys on screen don't line up with your MPK (for example after using its OCTAVE buttons), click <b>Match keys</b> above the on-screen keyboard and press the far-left key on your MPK.</p>
+      <h4>Organising sounds</h4>
       <p class="muted small">The Sounds panel has <b>sections</b>, which hold <b>packs</b>, which hold <b>groups</b>. Click any title to fold it. Right-click a title or a sound to add, rename, import into or delete. Drag sounds onto a group, pack or section title to move them, and drag pack or group titles onto the pads to load them. Deleting a built-in sound only hides it.</p>
-      <button class="btn small" id="btnRestoreBuiltins">Restore built-in sounds</button>
-      <h3>Sound credits</h3>
-      <div id="credits" class="credits muted small"></div>
-      <div class="dialog-actions"><button class="btn primary" data-close>Got it</button></div>
+      <div class="dialog-actions"><button class="btn primary" data-close>Done</button></div>
+    </div>
+  </div>
+
+  <!-- Factory reset confirmation -->
+  <div id="resetDlg" class="overlay hidden">
+    <div class="dialog">
+      <h2>Factory reset?</h2>
+      <p>This permanently deletes:</p>
+      <ul class="reset-list">
+        <li>all the sound packs you imported</li>
+        <li>your pad recordings and mic recordings</li>
+        <li>the song that's open now (save it first if you want to keep it)</li>
+      </ul>
+      <p class="muted small">The Sounds panel goes back to how it came and the built-in sounds stay. Your MPK calibration and any song files you saved are kept, but saved songs that use deleted sounds will play without them. <b>This can't be undone.</b></p>
+      <div class="dialog-actions">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn danger" id="resetGo">Delete everything and reset</button>
+      </div>
     </div>
   </div>
 

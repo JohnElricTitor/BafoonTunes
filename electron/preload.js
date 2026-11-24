@@ -19,6 +19,11 @@ contextBridge.exposeInMainWorld('bafoons', {
     pending: () => ipcRenderer.invoke('file:pending'),
     onOpen: cb => ipcRenderer.on('file:opened', (_e, file) => cb(file)),
   },
+  system: {
+    // Windows' own microphone privacy switch: 'granted' | 'denied' | …
+    micAccess: () => ipcRenderer.invoke('sys:micAccess'),
+    openMicSettings: () => ipcRenderer.invoke('sys:openMicSettings'),
+  },
   updates: {
     version: () => ipcRenderer.invoke('app:version'),
     check: () => ipcRenderer.invoke('update:check'),

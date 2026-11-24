@@ -9,7 +9,7 @@
 //   with an index in library.json.
 // - Native Save / Open / Export dialogs.
 // - Auto-updates from GitHub Releases (JohnElricTitor/BafoonTunes).
-const { app, BrowserWindow, protocol, session, ipcMain, dialog, shell, Menu } = require('electron');
+const { app, BrowserWindow, protocol, session, ipcMain, dialog, shell, Menu, systemPreferences } = require('electron');
 const path = require('path');
 const fs = require('fs/promises');
 const { autoUpdater } = require('electron-updater');
@@ -160,6 +160,13 @@ ipcMain.handle('file:open', async (e, { filters }) => {
   const p = r.filePaths[0];
   return { path: p, name: path.basename(p), text: await fs.readFile(p, 'utf8') };
 });
+
+// ---------------------------------------------------------------- microphone (Windows privacy settings)
+
+ipcMain.handle('sys:micAccess', () => {
+  try { return systemPreferences.getMediaAccessStatus('microphone'); } catch { return 'unknown'; }
+});
+ipcMain.handle('sys:openMicSettings', () => shell.openExternal('ms-settings:privacy-microphone'));
 
 // ---------------------------------------------------------------- auto-updates
 

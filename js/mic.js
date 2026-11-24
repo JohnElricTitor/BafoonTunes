@@ -1,11 +1,13 @@
-// Microphone input for Mic layers: pick an input, show its level, optionally hear yourself
-// (Monitor, for headphones), and capture takes lined up with the loop.
-import { emit } from './state.js';
+// The microphone: which one to use (one choice for the whole app, set in Settings › Microphone),
+// asking permission, the input level, hearing yourself (Monitor, for headphones), and
+// capturing takes lined up with the loop. One thing at a time owns the open mic: the
+// selected Mic layer, a pad armed to record, or the settings panel's level meter.
+import { state, emit } from './state.js';
 import { engine, loadSound } from './engine.js';
 
 const mic = {
   stream: null, source: null, node: null, analyser: null, monitorGain: null,
-  layerId: null, deviceId: null, opening: null,
+  layerId: null, deviceId: null, opening: null, owner: null,
   chunks: [], capturing: false,
 };
 let workletLoaded = null;
@@ -13,7 +15,28 @@ let workletLoaded = null;
 export const micState = mic;
 export const micReady = layerId => !!mic.node && mic.layerId === layerId;
 
-/** Audio inputs (mics, audio interfaces). Labels appear once mic access is allowed. */
+// ---------------------------------------------------------------- which mic
+
+const CHOICE_KEY = 'tunes.mic';
+let choice = '';
+try { choice = localStorage.getItem(CHOICE_KEY) || ''; } catch { /* */ }
+
+/** The chosen mic's device id ('' = the computer's default mic). */
+export const micChoice = () => choice;
+
+/** Use a different mic from now on (reopens it if it's in use). */
+export function setMicChoice(id) {
+  choice = id || '';
+  try { localStorage.setItem(CHOICE_KEY, choice); } catch { /* */ }
+  emit('micChoice', choice);
+  if (mic.node && !mic.capturing && mic.owner) {
+    const owner = mic.owner;
+    closeMic();
+    openMic(owner);
+  }
+}
+
+/** Audio inputs (mics, audio interfaces). Names appear once the mic is allowed. */
 export async function listInputs() {
   try {
     const devices = await navigator.mediaDevices.enumerateDevices();
@@ -22,10 +45,77 @@ export async function listInputs() {
   } catch { return []; }
 }
 
-/** Open the mic for a layer (closes any other). Resolves true when it's ready. */
-export function openMic(layer) {
-  if (mic.layerId === layer.id && mic.deviceId === (layer.input || '') && mic.node) return Promise.resolve(true);
-  if (mic.opening) return mic.opening.then(() => openMic(layer));
+/** The chosen mic's name, for showing on Mic layers. */
+export async function micName() {
+  if (!choice) return 'Default mic';
+  return (await listInputs()).find(d => d.id === choice)?.label || 'Default mic';
+}
+
+// ---------------------------------------------------------------- permission
+
+const desktop = window.bafoons?.system;
+
+/**
+ * Can BafoonsTunes use a microphone? 'granted' | 'prompt' (not asked yet) |
+ * 'denied' (blocked for this page) | 'system' (Windows is blocking it) | 'unknown'
+ */
+export async function micPermission() {
+  if (desktop?.micAccess) {
+    const s = await desktop.micAccess().catch(() => 'unknown');
+    if (s === 'denied' || s === 'restricted') return 'system';
+  }
+  try {
+    const p = await navigator.permissions.query({ name: 'microphone' });
+    return p.state; // granted | prompt | denied
+  } catch { return 'unknown'; }
+}
+
+/** Why a mic couldn't be opened, as one of: system | denied | none | busy | other. */
+export function micProblem(e) {
+  if (/system/i.test(e?.message || '')) return 'system';
+  if (/NotAllowed|Security/.test(e?.name)) return desktop ? 'system' : 'denied';
+  if (/NotFound|Overconstrained/.test(e?.name)) return 'none';
+  if (/NotReadable|Abort/.test(e?.name)) return 'busy';
+  return 'other';
+}
+
+export const MIC_PROBLEM_TEXT = {
+  system: 'Windows is blocking the microphone. Open Microphone settings to see how to allow it.',
+  denied: 'The microphone is blocked for this page. Click the icon at the left of the address bar, set Microphone to Allow, then reload the page.',
+  none: 'No microphone found. Plug one in, then try again.',
+  busy: 'The microphone is being used by another program, or Windows could not start it. Close other apps using it and try again.',
+  other: 'Could not open the microphone.',
+};
+
+/** Ask for the microphone (shows the browser's / Windows' prompt). Resolves to 'granted' or a problem. */
+export async function requestMic() {
+  try {
+    if (!navigator.mediaDevices?.getUserMedia) return 'other';
+    const s = await navigator.mediaDevices.getUserMedia({ audio: true });
+    for (const t of s.getTracks()) t.stop();
+    emit('micChoice', choice); // device names are now known
+    return 'granted';
+  } catch (e) {
+    console.warn('mic request failed', e);
+    return micProblem(e);
+  }
+}
+
+export const openWindowsMicSettings = () => desktop?.openMicSettings?.();
+
+// ---------------------------------------------------------------- open / close
+
+/** Give the mic to whatever should have it now: the selected Mic layer, or nothing. */
+export function restoreMic() {
+  const sel = state.tracks.find(t => t.id === state.selectedLayer);
+  if (sel?.kind === 'mic') openMic(sel);
+  else if (mic.layerId) closeMic();
+}
+
+/** Open the mic for an owner {id, monitor} (closes it for anyone else). Resolves true when it's ready. */
+export function openMic(owner) {
+  if (mic.layerId === owner.id && mic.deviceId === choice && mic.node) { mic.owner = owner; return Promise.resolve(true); }
+  if (mic.opening) return mic.opening.then(() => openMic(owner));
   closeMic();
   mic.opening = (async () => {
     const ctx = engine.ctx;
@@ -34,13 +124,14 @@ export function openMic(layer) {
       if (!workletLoaded) workletLoaded = ctx.audioWorklet.addModule('js/mic-worklet.js');
       await workletLoaded;
       const audio = { echoCancellation: false, noiseSuppression: false, autoGainControl: false };
-      if (layer.input) audio.deviceId = { exact: layer.input };
+      if (choice) audio.deviceId = { exact: choice };
       let stream;
       try { stream = await navigator.mediaDevices.getUserMedia({ audio }); }
       catch (e) {
-        if (!layer.input || e.name !== 'OverconstrainedError') throw e;
-        delete audio.deviceId; // that input is gone: fall back to the default mic
+        if (!choice || !/Overconstrained|NotFound/.test(e.name)) throw e;
+        delete audio.deviceId; // the chosen mic is unplugged: use the default one
         stream = await navigator.mediaDevices.getUserMedia({ audio });
+        emit('toast', 'Your chosen microphone isn\'t plugged in, so the default one is being used.');
       }
       mic.stream = stream;
       mic.source = ctx.createMediaStreamSource(stream);
@@ -53,20 +144,24 @@ export function openMic(layer) {
       mic.analyser.fftSize = 1024;
       mic.source.connect(mic.analyser);
       mic.monitorGain = ctx.createGain();
-      mic.monitorGain.gain.value = layer.monitor ? 1 : 0;
+      mic.monitorGain.gain.value = owner.monitor ? 1 : 0;
       mic.source.connect(mic.monitorGain).connect(ctx.destination);
-      mic.layerId = layer.id;
-      mic.deviceId = layer.input || '';
-      emit('micOpen', layer.id);
+      mic.layerId = owner.id;
+      mic.owner = owner;
+      mic.deviceId = choice;
+      emit('micOpen', owner.id);
       return true;
     } catch (e) {
       console.warn('mic failed', e);
       closeMic();
-      const blocked = /NotAllowed|Security/.test(e.name);
-      emit('toast', blocked
-        ? 'Microphone access was blocked. Allow the microphone for BafoonsTunes, then select the Mic layer again.'
-        : e.name === 'NotFoundError' ? 'No microphone found. Plug one in, then select the Mic layer again.'
-        : 'Could not open the microphone: ' + (e.message || e.name));
+      const problem = micProblem(e);
+      emit('micProblem', problem);
+      if (owner.id !== 'settings') { // the settings panel shows its own message
+        emit('toast', {
+          text: problem === 'other' ? `${MIC_PROBLEM_TEXT.other} (${e.message || e.name})` : MIC_PROBLEM_TEXT[problem],
+          action: 'Microphone settings', run: () => emit('openSettings', 'mic'), ms: 12000,
+        });
+      }
       return false;
     } finally {
       mic.opening = null;
@@ -79,11 +174,12 @@ export function closeMic() {
   if (mic.capturing) return; // never cut off a take in progress
   for (const t of mic.stream?.getTracks() || []) t.stop();
   for (const n of [mic.source, mic.node, mic.analyser, mic.monitorGain]) { try { n?.disconnect(); } catch { /* */ } }
-  Object.assign(mic, { stream: null, source: null, node: null, analyser: null, monitorGain: null, layerId: null, deviceId: null });
+  Object.assign(mic, { stream: null, source: null, node: null, analyser: null, monitorGain: null, layerId: null, deviceId: null, owner: null });
   emit('micOpen', null);
 }
 
 export function setMonitor(on) {
+  if (mic.owner) mic.owner.monitor = on;
   mic.monitorGain?.gain.setTargetAtTime(on ? 1 : 0, engine.ctx.currentTime, 0.02);
 }
 

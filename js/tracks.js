@@ -5,7 +5,7 @@ import { state, emit, on, mod, drag } from './state.js';
 import { buildChain, effectInfo } from './effects.js';
 import { getSound, isPitched, loadSound, startVoice, releaseVoice } from './engine.js';
 import { tp, currentBeat, loopBeats, updateTrackGains, removeTrackNode, seek, trackGain, newLayer, selectLayer, setLayerEffects, setEffectAmount } from './transport.js';
-import { openMic, closeMic, setMonitor, micLevel, listInputs, micState } from './mic.js';
+import { openMic, closeMic, setMonitor, micLevel, micName, micState } from './mic.js';
 import { encodeWav } from './exporter.js';
 import { importSources } from './userlib.js';
 import { layout, placeImport, renameNode, MINE } from './layout.js';
@@ -107,7 +107,7 @@ function makeLane(tr) {
           <span class="lane-len"></span>
         </div>
         ${isMic ? `<div class="lane-mic">
-          <select class="lane-input" title="Which microphone to record from"><option value="">Default mic</option></select>
+          <button class="lane-input" title="The microphone this records from. Click to change it (Settings › Microphone)">🎤 <span>Default mic</span></button>
           <button class="lane-btn monitor" title="Monitor: hear the mic while recording. Use headphones, or the speakers will feed back into the mic.">🎧</button>
           <div class="lane-meter" title="Mic level (select the layer to see it)"><i></i></div>
         </div>` : ''}
@@ -152,19 +152,11 @@ function makeLane(tr) {
     const input = el.querySelector('.lane-input');
     const monitor = el.querySelector('.monitor');
     meter = el.querySelector('.lane-meter i');
-    const fillInputs = async () => {
-      const list = await listInputs();
-      input.innerHTML = '<option value="">Default mic</option>';
-      for (const d of list) input.add(new Option(d.label, d.id));
-      input.value = list.some(d => d.id === tr.input) ? tr.input : '';
-    };
-    fillInputs();
-    on('micOpen', id => { if (id === tr.id) fillInputs(); }); // names appear once the mic is allowed
-    input.onchange = () => {
-      tr.input = input.value;
-      emit('change');
-      if (state.selectedLayer === tr.id) openMic(tr);
-    };
+    const showName = async () => { input.querySelector('span').textContent = await micName(); };
+    showName();
+    on('micChoice', showName);
+    on('micOpen', id => { if (id === tr.id) showName(); }); // names appear once the mic is allowed
+    input.onclick = () => emit('openSettings', 'mic');
     monitor.classList.toggle('on', !!tr.monitor);
     monitor.onclick = () => {
       tr.monitor = !tr.monitor;

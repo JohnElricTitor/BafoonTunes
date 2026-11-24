@@ -5,7 +5,7 @@
 import { state, emit } from './state.js';
 import { engine, loadSound } from './engine.js';
 import { padHooks } from './instrument.js';
-import { openMic, closeMic, startCapture, finishCapture, cancelCapture, takeToWav, micState } from './mic.js';
+import { openMic, startCapture, finishCapture, cancelCapture, takeToWav, restoreMic } from './mic.js';
 
 export const padRec = { armed: null, recording: null, t0: 0, busy: false };
 const PACK = 'Pad recordings';
@@ -14,9 +14,7 @@ const PACK = 'Pad recordings';
 export async function togglePadRecord(n) {
   if (padRec.recording !== null || padRec.busy) return;
   if (padRec.armed === n) { disarm(); emit('toast', 'Pad recording cancelled.'); return; }
-  // use the same mic as a selected Mic layer, if there is one
-  const layer = state.tracks.find(t => t.id === state.selectedLayer && t.kind === 'mic');
-  const ok = await openMic({ id: 'pad-rec', input: layer?.input || '', monitor: false });
+  const ok = await openMic({ id: 'pad-rec', monitor: false }); // the mic chosen in Settings › Microphone
   if (!ok) return;
   padRec.armed = n;
   emit('padRec');
@@ -27,12 +25,6 @@ function disarm() {
   padRec.armed = null;
   emit('padRec');
   restoreMic();
-}
-
-/** Give the mic back to a selected Mic layer, or close it. */
-function restoreMic() {
-  const sel = state.tracks.find(t => t.id === state.selectedLayer);
-  if (sel?.kind === 'mic') openMic(sel); else if (micState.layerId === 'pad-rec') closeMic();
 }
 
 // While armed, pressing the pad records instead of playing it.

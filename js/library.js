@@ -357,7 +357,7 @@ function deleteMessage(what, idList) {
     + (idList.length ? 'Pads and keys using these sounds will be cleared.' : 'It is empty.')
     + (usedInTracks(ids) ? ' Tracks that use them will go silent for those notes.' : '')
     + (mine ? "\n\nYour imported sounds' copies are deleted from BafoonsTunes. Your original files are not touched." : '')
-    + (builtin ? '\n\nBuilt-in sounds are only hidden. Bring them back with "Restore built-in sounds" in the ? menu.' : '');
+    + (builtin ? '\n\nBuilt-in sounds are only hidden. Bring them back with "Restore built-in sounds" in Settings (the gear at the top right).' : '');
 }
 
 async function finishDelete(idList, label) {

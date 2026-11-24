@@ -108,6 +108,8 @@ kbd {
 .btn.primary:hover { background: var(--accent-2); }
 .btn.small { padding: 4px 9px; font-size: 12px; }
 .btn.icon { width: 32px; padding: 6px 0; text-align: center; }
+.btn.icon .gear { display: block; width: 17px; height: 17px; margin: 0 auto; fill: currentColor; transition: transform .3s; }
+.btn.icon:hover .gear { transform: rotate(45deg); }
 .btn.big { padding: 12px 26px; font-size: 16px; font-weight: 600; border-radius: 10px; }
 .btn:disabled { opacity: .5; cursor: default; }
 .toggle {
@@ -271,8 +273,10 @@ kbd {
 .lane-mic { display: flex; align-items: center; gap: 6px; padding-left: 5px; }
 .lane-input {
   flex: 1; min-width: 0; font-size: 11px; color: var(--text); background: var(--panel2);
-  border: 1px solid var(--line); border-radius: 5px; padding: 2px 4px;
+  border: 1px solid var(--line); border-radius: 5px; padding: 2px 6px;
+  text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
 }
+.lane-input:hover { border-color: #3a3a48; }
 .lane-btn.monitor { width: 26px; font-size: 12px; }
 .lane-btn.monitor.on { background: #1d4d7a; border-color: #2d6aa3; }
 .lane-meter { width: 46px; height: 6px; flex: none; border-radius: 3px; background: #0b0b0f; border: 1px solid var(--line); overflow: hidden; }
@@ -593,13 +597,30 @@ body.dragging-oneshot .strip { outline: .25cqw dashed #ffffff55; outline-offset:
 .help-list { padding-left: 20px; margin: 0; }
 .help-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .help-list li { margin: 7px 0; }
-.credits p { margin: 6px 0; }
+.dialog h3 + p { margin-top: 0; }
+.dialog h4 { margin: 14px 0 4px; font-size: 12.5px; color: var(--text); }
+.dialog h4 + p { margin-top: 0; }
+/* Settings: microphone */
+.mic-select {
+  flex: 1; min-width: 180px; max-width: 320px; font-size: 13px; color: var(--text);
+  background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px;
+}
+.mic-select:disabled { opacity: .5; }
+.mic-meter { width: 90px; height: 8px; flex: none; border-radius: 4px; background: #0b0b0f; border: 1px solid var(--line); overflow: hidden; }
+.mic-meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #2fbf71, #e8c547 70%, #ff4d5f); transition: width 60ms linear; }
+#micStatus.ok { color: #7fd8a4; }
+#micStatus.bad { color: #ff9aa4; }
+.btn.danger { border-color: #7a2630; color: #ff9aa4; }
+.btn.danger:hover { background: #3a1419; border-color: #a3313f; color: #ffc2c8; }
+#resetDlg .dialog p { margin: 6px 0; }
+.reset-list { margin: 4px 0 10px; padding-left: 20px; }
+.reset-list li { margin: 3px 0; }
+#resetDlg { z-index: 55; }
 .midi-log {
   margin: 6px 0 0; height: 168px; overflow: hidden; padding: 8px 10px;
   background: #0b0b0f; border: 1px solid var(--line); border-radius: 8px;
   font: 12px/1.45 "Cascadia Mono", Consolas, monospace; color: #b9f5d0; white-space: pre;
 }
-.credits a { color: #9ecbff; }
 
 .toast {
   position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 60;

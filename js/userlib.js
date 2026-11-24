@@ -336,6 +336,11 @@ export async function removePack(packId) {
   return ids;
 }
 
+/** Factory reset: delete every imported pack and recording. */
+export async function removeAllPacks() {
+  for (const p of [...userLib.packs]) await removePack(p.id);
+}
+
 // ---------------------------------------------------------------- delete
 // (Renaming and organising live in layout.js; this file only stores the audio.)
 

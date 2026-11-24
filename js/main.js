@@ -11,6 +11,7 @@ import { loadLayout, placeImport, pathOf, restoreBuiltins, MINE } from './layout
 import { buildTracks } from './tracks.js';
 import { renderMix, encodeWav, encodeMp3, saveBlob } from './exporter.js';
 import { initAutosave, restoreAutosave, newProject, saveProject, openProject, openProjectText, preloadProjectSounds } from './project.js';
+import { openSettings } from './settings.js';
 
 const $ = id => document.getElementById(id);
 
@@ -366,8 +367,9 @@ function bindTopbar() {
   $('btnExport').onclick = openExport;
   $('btnHelp').onclick = () => {
     if (midi.log?.length) $('midiLog').textContent = midi.log.join('\n');
-    $('helpDlg').classList.remove('hidden');
+    openSettings();
   };
+  on('stopAll', stopEverything);
 
   on('project', () => { syncTopbar(); applyKnobs(true); updateTrackGains(); });
   on('bpm', () => { $('bpm').value = state.bpm; applyKnobs(); });
@@ -541,21 +543,7 @@ function bindDialogs() {
     });
   });
   $('expGo').onclick = runExport;
-
-  const credits = $('credits');
-  for (const c of engine.credits) {
-    const p = document.createElement('p');
-    const b = document.createElement('b');
-    b.textContent = c.title + ': ';
-    p.appendChild(b);
-    p.appendChild(document.createTextNode(c.text + ' '));
-    if (c.url) {
-      const a = document.createElement('a');
-      a.href = c.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = c.url;
-      p.appendChild(a);
-    }
-    credits.appendChild(p);
-  }
+  // (Sound credits live in sounds/LICENSES.txt, which ships with the app.)
 }
 
 const segVal = id => $(id).querySelector('button.on').dataset.v;
