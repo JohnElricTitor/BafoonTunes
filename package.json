@@ -1,7 +1,7 @@
 {
   "name": "bafoonstunes",
   "productName": "BafoonsTunes",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A simple music maker built around the Akai MPK mini mk2.",
   "main": "electron/main.js",
   "private": true,

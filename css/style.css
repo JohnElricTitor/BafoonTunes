@@ -400,6 +400,15 @@ kbd {
   opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap;
 }
 .knob.show-val .knob-val { opacity: 1; transition: opacity .02s; }
+/* hover bubble: readable name of each knob (fixed size, so it's legible however small the device is) */
+.knob-tip {
+  position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%); z-index: 5;
+  background: #0b0b0fee; border: 1px solid #3a3a46; border-radius: 8px; padding: 6px 10px;
+  font: 600 13px/1.35 "Segoe UI", system-ui, sans-serif; color: #fff; white-space: nowrap; text-align: center;
+  box-shadow: 0 8px 20px #000a; pointer-events: none; opacity: 0; transition: opacity .12s;
+}
+.knob.tip .knob-tip { opacity: 1; }
+.knob.tip .knob-val { opacity: 0; }
 
 /* keys strip */
 .strip {

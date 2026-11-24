@@ -242,7 +242,7 @@ export function renameSound(id, name) {
 
 export function moveSound(soundId, targetId) {
   const t = find(targetId);
-  if (!t) return;
+  if (!t || t.node.sounds.includes(soundId)) return; // already there
   detach(soundId);
   t.node.sounds.push(soundId);
   changed();

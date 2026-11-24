@@ -60,7 +60,7 @@ export function buildController(root) {
   renderPads(); renderKeys(); renderKnobs(); renderStrip();
 
   on('hit', onHit);
-  on('knob', i => { renderKnob(i); flashKnob(i); });
+  on('knob', i => { renderKnob(i); flashKnob(i); updateTip(i); });
   on('project', () => { renderPads(); renderKeys(); renderKnobs(); renderStrip(); });
   on('assign', () => { renderPads(); renderKeys(); renderStrip(); });
   on('learn', k => ui.knobs.forEach((n, i) => n.el.classList.toggle('learning', i === k)));
@@ -313,8 +313,15 @@ function buildKnobs(root) {
     const k = place(el('div', 'knob', root, knobSvg()), cx - 52, cy - 52, cx + 52, cy + 52);
     const val = el('div', 'knob-val', k);
     const lbl = place(el('div', 'knob-lbl', root, `<b>K${i + 1}</b><em>${KNOBS[i].label.toUpperCase()}</em>`), cx - 70, cy + 50, cx + 70, cy + 84);
-    lbl.style.pointerEvents = 'none';
-    k.title = `${KNOBS[i].label} — drag up/down, double-click to reset, right-click to link to a hardware knob`;
+
+    // Hover the dial (or the small text under it) to read what it is in a clear bubble.
+    const tip = el('div', 'knob-tip', k);
+    const showTip = () => { k.classList.add('tip'); updateTip(i); };
+    const hideTip = () => k.classList.remove('tip');
+    for (const target of [k, lbl]) {
+      target.addEventListener('pointerenter', showTip);
+      target.addEventListener('pointerleave', hideTip);
+    }
 
     k.addEventListener('pointerdown', e => {
       if (e.button !== 0) return;
@@ -330,8 +337,14 @@ function buildKnobs(root) {
       startLearn(i);
       emit('toast', `Now turn the knob on your MPK you want for K${i + 1} (${KNOBS[i].label}).`);
     });
-    ui.knobs.push({ el: k, arc: k.querySelector('.arc'), ptr: k.querySelector('.ptr'), val, timer: 0 });
+    ui.knobs.push({ el: k, arc: k.querySelector('.arc'), ptr: k.querySelector('.ptr'), val, tip, timer: 0 });
   });
+}
+
+function updateTip(i) {
+  const n = ui.knobs[i];
+  if (!n?.el.classList.contains('tip')) return;
+  n.tip.textContent = `K${i + 1} · ${KNOBS[i].label} · ${Math.round(state.knobs[i] * 100)}`;
 }
 
 function renderKnob(i) {
@@ -536,7 +549,8 @@ function dragSound() {
 
 export function startDrag(e, data) {
   drag.current = data;
-  e.dataTransfer.effectAllowed = 'copy';
+  // copy onto pads / keys, move within the sound list
+  e.dataTransfer.effectAllowed = 'copyMove';
   e.dataTransfer.setData('text/plain', data.id || data.name || '');
   const s = data.type === 'sound' ? getSound(data.id) : null;
   if (data.type === 'kit') document.body.classList.add('dragging-kit');
@@ -545,5 +559,5 @@ export function startDrag(e, data) {
 export function endDrag() {
   drag.current = null;
   document.body.classList.remove('dragging-kit', 'dragging-pitched', 'dragging-oneshot');
-  document.querySelectorAll('.drop-hover').forEach(n => n.classList.remove('drop-hover'));
+  document.querySelectorAll('.drop-hover, .lib-drop').forEach(n => n.classList.remove('drop-hover', 'lib-drop'));
 }

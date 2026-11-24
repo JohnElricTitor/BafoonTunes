@@ -215,7 +215,7 @@ function bindImport() {
       e.preventDefault();
       zone.classList.remove('file-over');
       // dropped onto a section / pack / group title: import straight into it
-      const onTitle = e.target.closest?.('.lib-title-row')?.dataset.node;
+      const onTitle = e.target.closest?.('.lib-group')?.querySelector(':scope > .lib-title-row')?.dataset.node;
       if (zone !== $('importDrop')) setImportTarget(onTitle || null);
       const sources = await sourcesFromDrop(e.dataTransfer);
       $('impStatus').textContent = '';

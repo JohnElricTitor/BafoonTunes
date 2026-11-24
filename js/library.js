@@ -36,6 +36,10 @@ export function buildLibrary() {
   on('project', markUsed);
   on('library', render);
   document.getElementById('btnNewSection').onclick = () => createAndRename(L.newSection());
+  // clear the drop highlight when a drag leaves the list or ends anywhere
+  listEl.addEventListener('dragleave', e => { if (!listEl.contains(e.relatedTarget)) highlight(null); });
+  document.addEventListener('dragend', () => highlight(null));
+  document.addEventListener('drop', () => highlight(null));
   render();
 }
 
@@ -133,20 +137,22 @@ function container(kind, node, level, forceOpen) {
   });
   t.addEventListener('dragend', endDrag);
 
-  // dropping things onto this title
-  t.addEventListener('dragover', e => {
+  // Dropping things anywhere on this section / pack / group (its title or its sounds).
+  // The innermost place that accepts the item wins; otherwise it falls through to the parent,
+  // e.g. a group dragged over another group's sounds lands in that group's pack.
+  wrap.addEventListener('dragover', e => {
     if (!canDrop(drag.current, kind, node.id)) return;
     e.preventDefault();
+    e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
-    t.classList.add('lib-drop');
+    highlight(t);
   });
-  t.addEventListener('dragleave', () => t.classList.remove('lib-drop'));
-  t.addEventListener('drop', e => {
+  wrap.addEventListener('drop', e => {
     const d = drag.current;
-    t.classList.remove('lib-drop');
     if (!canDrop(d, kind, node.id)) return;
     e.preventDefault();
     e.stopPropagation();
+    highlight(null);
     if (d.type === 'sound') L.moveSound(d.id, node.id);
     else if (d.type === 'section') L.moveSection(d.id, node.id);
     else if (d.node?.kind === 'group') L.moveGroup(d.node.id, node.id);
@@ -161,6 +167,15 @@ function container(kind, node, level, forceOpen) {
   body.className = 'lib-group-body';
   wrap.append(t, body);
   return { wrap, body, title: t };
+}
+
+// Light up the title of the place a dragged item would land (one at a time).
+let lit = null;
+function highlight(el) {
+  if (lit === el) return;
+  lit?.classList.remove('lib-drop');
+  lit = el;
+  el?.classList.add('lib-drop');
 }
 
 /** What may be dropped where: sounds anywhere, groups on packs, packs on sections, sections on sections. */
