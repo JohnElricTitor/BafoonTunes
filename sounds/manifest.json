@@ -1,0 +1,1482 @@
+{
+ "kits": [
+  {
+   "id": "acoustic",
+   "name": "Acoustic Kit",
+   "sounds": [
+    "acoustic-kick",
+    "acoustic-kick-soft",
+    "acoustic-snare",
+    "acoustic-snare-soft",
+    "acoustic-rim",
+    "acoustic-clap",
+    "acoustic-hat-closed",
+    "acoustic-hat-pedal",
+    "acoustic-hat-open",
+    "acoustic-tom-low",
+    "acoustic-tom-mid",
+    "acoustic-tom-high",
+    "acoustic-crash",
+    "acoustic-splash",
+    "acoustic-ride",
+    "acoustic-cowbell",
+    "acoustic-shaker"
+   ]
+  },
+  {
+   "id": "electronic",
+   "name": "Electronic Kit",
+   "sounds": [
+    "electronic-kick",
+    "electronic-kick-808",
+    "electronic-kick-haus",
+    "electronic-snare",
+    "electronic-snare-elec",
+    "electronic-clap",
+    "electronic-hat-closed",
+    "electronic-hat-closed-2",
+    "electronic-hat-open",
+    "electronic-tom",
+    "electronic-crash",
+    "electronic-rim",
+    "electronic-wood",
+    "electronic-triangle",
+    "electronic-perc-blip"
+   ]
+  }
+ ],
+ "sounds": [
+  {
+   "id": "acoustic-kick",
+   "name": "Kick",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-kick/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "kick"
+  },
+  {
+   "id": "acoustic-kick-soft",
+   "name": "Soft Kick",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-kick-soft/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "kick"
+  },
+  {
+   "id": "acoustic-snare",
+   "name": "Snare",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-snare/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "snare"
+  },
+  {
+   "id": "acoustic-snare-soft",
+   "name": "Soft Snare",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-snare-soft/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "snare"
+  },
+  {
+   "id": "acoustic-rim",
+   "name": "Rim Click",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-rim/0.m4a"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "perc"
+  },
+  {
+   "id": "acoustic-clap",
+   "name": "Clap",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-clap/0.m4a"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "clap"
+  },
+  {
+   "id": "acoustic-hat-closed",
+   "name": "Closed Hat",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-hat-closed/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "hat-closed"
+  },
+  {
+   "id": "acoustic-hat-pedal",
+   "name": "Pedal Hat",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-hat-pedal/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "hat-closed"
+  },
+  {
+   "id": "acoustic-hat-open",
+   "name": "Open Hat",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-hat-open/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "hat-open"
+  },
+  {
+   "id": "acoustic-tom-low",
+   "name": "Low Tom",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-tom-low/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "tom"
+  },
+  {
+   "id": "acoustic-tom-mid",
+   "name": "Mid Tom",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-tom-mid/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "tom"
+  },
+  {
+   "id": "acoustic-tom-high",
+   "name": "High Tom",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-tom-high/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "tom"
+  },
+  {
+   "id": "acoustic-crash",
+   "name": "Crash",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-crash/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "cymbal"
+  },
+  {
+   "id": "acoustic-splash",
+   "name": "Splash",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-splash/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "cymbal"
+  },
+  {
+   "id": "acoustic-ride",
+   "name": "Ride",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-ride/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "cymbal"
+  },
+  {
+   "id": "acoustic-cowbell",
+   "name": "Cowbell",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-cowbell/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "perc"
+  },
+  {
+   "id": "acoustic-shaker",
+   "name": "Shaker",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/acoustic-shaker/0.m4a"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "acoustic",
+   "role": "perc"
+  },
+  {
+   "id": "electronic-kick",
+   "name": "Tek Kick",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-kick/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "kick"
+  },
+  {
+   "id": "electronic-kick-808",
+   "name": "808 Kick",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-kick-808/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "kick"
+  },
+  {
+   "id": "electronic-kick-haus",
+   "name": "House Kick",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-kick-haus/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "kick"
+  },
+  {
+   "id": "electronic-snare",
+   "name": "Snare",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-snare/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "snare"
+  },
+  {
+   "id": "electronic-snare-elec",
+   "name": "Electro Snare",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-snare-elec/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "snare"
+  },
+  {
+   "id": "electronic-clap",
+   "name": "Finger Snap",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-clap/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "clap"
+  },
+  {
+   "id": "electronic-hat-closed",
+   "name": "Closed Hat",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-hat-closed/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "hat-closed"
+  },
+  {
+   "id": "electronic-hat-closed-2",
+   "name": "Closed Hat 2",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-hat-closed-2/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "hat-closed"
+  },
+  {
+   "id": "electronic-hat-open",
+   "name": "Open Hat",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-hat-open/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "hat-open"
+  },
+  {
+   "id": "electronic-tom",
+   "name": "Fuzz Tom",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-tom/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "tom"
+  },
+  {
+   "id": "electronic-crash",
+   "name": "Cymbal",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-crash/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "cymbal"
+  },
+  {
+   "id": "electronic-rim",
+   "name": "Tick",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-rim/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "perc"
+  },
+  {
+   "id": "electronic-wood",
+   "name": "Woodblock",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-wood/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "perc"
+  },
+  {
+   "id": "electronic-triangle",
+   "name": "Triangle",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-triangle/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "perc"
+  },
+  {
+   "id": "electronic-perc-blip",
+   "name": "Blip",
+   "category": "drums",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/electronic-perc-blip/0.flac"
+    }
+   ],
+   "license": "CC0-1.0",
+   "kit": "electronic",
+   "role": "perc"
+  },
+  {
+   "id": "piano-salamander",
+   "name": "Grand Piano",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 33,
+     "file": "sounds/piano-salamander/33.mp3"
+    },
+    {
+     "midi": 36,
+     "file": "sounds/piano-salamander/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/piano-salamander/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/piano-salamander/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/piano-salamander/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/piano-salamander/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/piano-salamander/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/piano-salamander/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/piano-salamander/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/piano-salamander/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/piano-salamander/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/piano-salamander/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/piano-salamander/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/piano-salamander/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/piano-salamander/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/piano-salamander/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/piano-salamander/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/piano-salamander/84.mp3"
+    }
+   ],
+   "license": "CC-BY-3.0"
+  },
+  {
+   "id": "epiano",
+   "name": "Electric Piano",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 36,
+     "file": "sounds/epiano/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/epiano/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/epiano/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/epiano/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/epiano/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/epiano/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/epiano/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/epiano/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/epiano/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/epiano/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/epiano/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/epiano/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/epiano/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/epiano/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/epiano/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/epiano/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/epiano/84.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0"
+  },
+  {
+   "id": "bass-electric",
+   "name": "Electric Bass",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 25,
+     "file": "sounds/bass-electric/25.m4a"
+    },
+    {
+     "midi": 28,
+     "file": "sounds/bass-electric/28.m4a"
+    },
+    {
+     "midi": 30,
+     "file": "sounds/bass-electric/30.m4a"
+    },
+    {
+     "midi": 33,
+     "file": "sounds/bass-electric/33.m4a"
+    },
+    {
+     "midi": 36,
+     "file": "sounds/bass-electric/36.m4a"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/bass-electric/39.m4a"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/bass-electric/42.m4a"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/bass-electric/45.m4a"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/bass-electric/48.m4a"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/bass-electric/51.m4a"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/bass-electric/54.m4a"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/bass-electric/57.m4a"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/bass-electric/60.m4a"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/bass-electric/63.m4a"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "bass-synth",
+   "name": "Synth Bass",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 24,
+     "file": "sounds/bass-synth/24.mp3"
+    },
+    {
+     "midi": 27,
+     "file": "sounds/bass-synth/27.mp3"
+    },
+    {
+     "midi": 30,
+     "file": "sounds/bass-synth/30.mp3"
+    },
+    {
+     "midi": 33,
+     "file": "sounds/bass-synth/33.mp3"
+    },
+    {
+     "midi": 36,
+     "file": "sounds/bass-synth/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/bass-synth/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/bass-synth/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/bass-synth/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/bass-synth/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/bass-synth/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/bass-synth/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/bass-synth/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/bass-synth/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/bass-synth/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/bass-synth/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/bass-synth/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/bass-synth/72.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0"
+  },
+  {
+   "id": "lead-saw",
+   "name": "Saw Lead",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 36,
+     "file": "sounds/lead-saw/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/lead-saw/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/lead-saw/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/lead-saw/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/lead-saw/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/lead-saw/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/lead-saw/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/lead-saw/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/lead-saw/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/lead-saw/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/lead-saw/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/lead-saw/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/lead-saw/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/lead-saw/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/lead-saw/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/lead-saw/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/lead-saw/84.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0",
+   "loop": [
+    0.4,
+    2.9
+   ]
+  },
+  {
+   "id": "pad-warm",
+   "name": "Warm Pad",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 36,
+     "file": "sounds/pad-warm/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/pad-warm/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/pad-warm/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/pad-warm/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/pad-warm/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/pad-warm/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/pad-warm/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/pad-warm/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/pad-warm/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/pad-warm/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/pad-warm/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/pad-warm/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/pad-warm/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/pad-warm/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/pad-warm/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/pad-warm/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/pad-warm/84.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0",
+   "loop": [
+    0.6,
+    2.9
+   ]
+  },
+  {
+   "id": "strings",
+   "name": "Strings",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 36,
+     "file": "sounds/strings/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/strings/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/strings/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/strings/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/strings/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/strings/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/strings/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/strings/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/strings/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/strings/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/strings/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/strings/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/strings/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/strings/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/strings/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/strings/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/strings/84.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0",
+   "loop": [
+    0.6,
+    2.9
+   ]
+  },
+  {
+   "id": "organ-drawbar",
+   "name": "Organ",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 36,
+     "file": "sounds/organ-drawbar/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/organ-drawbar/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/organ-drawbar/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/organ-drawbar/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/organ-drawbar/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/organ-drawbar/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/organ-drawbar/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/organ-drawbar/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/organ-drawbar/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/organ-drawbar/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/organ-drawbar/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/organ-drawbar/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/organ-drawbar/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/organ-drawbar/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/organ-drawbar/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/organ-drawbar/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/organ-drawbar/84.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0",
+   "loop": [
+    0.4,
+    2.9
+   ]
+  },
+  {
+   "id": "guitar-nylon",
+   "name": "Nylon Guitar",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 36,
+     "file": "sounds/guitar-nylon/36.mp3"
+    },
+    {
+     "midi": 39,
+     "file": "sounds/guitar-nylon/39.mp3"
+    },
+    {
+     "midi": 42,
+     "file": "sounds/guitar-nylon/42.mp3"
+    },
+    {
+     "midi": 45,
+     "file": "sounds/guitar-nylon/45.mp3"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/guitar-nylon/48.mp3"
+    },
+    {
+     "midi": 51,
+     "file": "sounds/guitar-nylon/51.mp3"
+    },
+    {
+     "midi": 54,
+     "file": "sounds/guitar-nylon/54.mp3"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/guitar-nylon/57.mp3"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/guitar-nylon/60.mp3"
+    },
+    {
+     "midi": 63,
+     "file": "sounds/guitar-nylon/63.mp3"
+    },
+    {
+     "midi": 66,
+     "file": "sounds/guitar-nylon/66.mp3"
+    },
+    {
+     "midi": 69,
+     "file": "sounds/guitar-nylon/69.mp3"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/guitar-nylon/72.mp3"
+    },
+    {
+     "midi": 75,
+     "file": "sounds/guitar-nylon/75.mp3"
+    },
+    {
+     "midi": 78,
+     "file": "sounds/guitar-nylon/78.mp3"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/guitar-nylon/81.mp3"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/guitar-nylon/84.mp3"
+    }
+   ],
+   "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0"
+  },
+  {
+   "id": "marimba",
+   "name": "Marimba",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 41,
+     "file": "sounds/marimba/41.m4a"
+    },
+    {
+     "midi": 48,
+     "file": "sounds/marimba/48.m4a"
+    },
+    {
+     "midi": 55,
+     "file": "sounds/marimba/55.m4a"
+    },
+    {
+     "midi": 59,
+     "file": "sounds/marimba/59.m4a"
+    },
+    {
+     "midi": 65,
+     "file": "sounds/marimba/65.m4a"
+    },
+    {
+     "midi": 72,
+     "file": "sounds/marimba/72.m4a"
+    },
+    {
+     "midi": 79,
+     "file": "sounds/marimba/79.m4a"
+    },
+    {
+     "midi": 83,
+     "file": "sounds/marimba/83.m4a"
+    },
+    {
+     "midi": 89,
+     "file": "sounds/marimba/89.m4a"
+    },
+    {
+     "midi": 96,
+     "file": "sounds/marimba/96.m4a"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "vibraphone",
+   "name": "Vibraphone",
+   "category": "instruments",
+   "type": "pitched",
+   "files": [
+    {
+     "midi": 53,
+     "file": "sounds/vibraphone/53.m4a"
+    },
+    {
+     "midi": 57,
+     "file": "sounds/vibraphone/57.m4a"
+    },
+    {
+     "midi": 60,
+     "file": "sounds/vibraphone/60.m4a"
+    },
+    {
+     "midi": 64,
+     "file": "sounds/vibraphone/64.m4a"
+    },
+    {
+     "midi": 67,
+     "file": "sounds/vibraphone/67.m4a"
+    },
+    {
+     "midi": 71,
+     "file": "sounds/vibraphone/71.m4a"
+    },
+    {
+     "midi": 74,
+     "file": "sounds/vibraphone/74.m4a"
+    },
+    {
+     "midi": 77,
+     "file": "sounds/vibraphone/77.m4a"
+    },
+    {
+     "midi": 81,
+     "file": "sounds/vibraphone/81.m4a"
+    },
+    {
+     "midi": 84,
+     "file": "sounds/vibraphone/84.m4a"
+    },
+    {
+     "midi": 88,
+     "file": "sounds/vibraphone/88.m4a"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-vinyl-scratch",
+   "name": "Vinyl scratch",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-vinyl-scratch/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-vinyl-backspin",
+   "name": "Vinyl backspin",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-vinyl-backspin/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-vinyl-rewind",
+   "name": "Vinyl rewind",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-vinyl-rewind/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-vinyl-hiss",
+   "name": "Vinyl Hiss",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-vinyl-hiss/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-impact-boom",
+   "name": "Cinematic Boom",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-impact-boom/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-impact",
+   "name": "Impact",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-impact/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-swoosh",
+   "name": "Swoosh",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-swoosh/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-dark-whoosh",
+   "name": "Dark whoosh",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-dark-whoosh/0.flac"
+    }
+   ],
+   "license": "CC0-1.0"
+  },
+  {
+   "id": "fx-riser-cymbal",
+   "name": "Cymbal Riser",
+   "category": "fx",
+   "type": "oneshot",
+   "files": [
+    {
+     "midi": null,
+     "file": "sounds/fx-riser-cymbal/0.m4a"
+    }
+   ],
+   "license": "CC0-1.0"
+  }
+ ],
+ "credits": [
+  {
+   "title": "Salamander Grand Piano",
+   "text": "Salamander Grand Piano V3 by Alexander Holm, licensed CC BY 3.0. MP3 conversion from Tone.js audio.",
+   "url": "https://creativecommons.org/licenses/by/3.0/"
+  },
+  {
+   "title": "FluidR3 GM SoundFont",
+   "text": "Electric piano, synth bass, saw lead, warm pad, strings, organ and nylon guitar from the Fluid (R3) General MIDI SoundFont, © 2000-2002, 2008 Frank Wen, MIT license. Pre-rendered by Benjamin Gleitzman (midi-js-soundfonts, MIT, © 2012 Benjamin Gleitzman). Full license text in sounds/LICENSES.txt.",
+   "url": "https://github.com/gleitz/midi-js-soundfonts"
+  },
+  {
+   "title": "Sonic Pi samples",
+   "text": "Drum and FX samples from Sonic Pi (sourced from Freesound contributors), CC0.",
+   "url": "https://sonic-pi.net"
+  },
+  {
+   "title": "Versilian Community Sample Library",
+   "text": "Marimba, vibraphone, clap, rim, shaker and cymbal swell by Versilian Studios, CC0.",
+   "url": "https://github.com/sgossner/VCSL"
+  },
+  {
+   "title": "Growlybass",
+   "text": "Electric bass by Karoryfer Samples, CC0.",
+   "url": "https://karoryfer.com"
+  },
+  {
+   "title": "Mirrors",
+   "text": "VCSL and Growlybass files mirrored by danigb/samples.",
+   "url": "https://github.com/danigb/samples"
+  }
+ ]
+}

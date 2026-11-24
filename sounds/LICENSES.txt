@@ -1,0 +1,51 @@
+Sample credits for Tunes
+========================
+
+Salamander Grand Piano
+Salamander Grand Piano V3 by Alexander Holm, licensed CC BY 3.0. MP3 conversion from Tone.js audio.
+https://creativecommons.org/licenses/by/3.0/
+
+FluidR3 GM SoundFont
+Electric piano, synth bass, saw lead, warm pad, strings, organ and nylon guitar from the Fluid (R3) General MIDI SoundFont, © 2000-2002, 2008 Frank Wen, MIT license. Pre-rendered by Benjamin Gleitzman (midi-js-soundfonts, MIT, © 2012 Benjamin Gleitzman). Full license text in sounds/LICENSES.txt.
+https://github.com/gleitz/midi-js-soundfonts
+
+Sonic Pi samples
+Drum and FX samples from Sonic Pi (sourced from Freesound contributors), CC0.
+https://sonic-pi.net
+
+Versilian Community Sample Library
+Marimba, vibraphone, clap, rim, shaker and cymbal swell by Versilian Studios, CC0.
+https://github.com/sgossner/VCSL
+
+Growlybass
+Electric bass by Karoryfer Samples, CC0.
+https://karoryfer.com
+
+Mirrors
+VCSL and Growlybass files mirrored by danigb/samples.
+https://github.com/danigb/samples
+
+
+MIT License (Fluid R3 GM SoundFont, Frank Wen; midi-js-soundfonts, Benjamin Gleitzman)
+--------------------------------------------------------------------------------------
+Copyright (c) 2000-2002, 2008 Frank Wen
+Copyright (c) 2012 Benjamin Gleitzman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons
+to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+Creative Commons Attribution 3.0: https://creativecommons.org/licenses/by/3.0/
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/

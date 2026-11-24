@@ -1,0 +1,62 @@
+{
+  "name": "bafoonstunes",
+  "productName": "BafoonsTunes",
+  "version": "1.0.0",
+  "description": "A simple music maker built around the Akai MPK mini mk2.",
+  "main": "electron/main.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JohnElricTitor/BafoonTunes.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "smoke": "electron . --smoke-test",
+    "icon": "electron tools/make-icon.js",
+    "dist": "electron-builder --win nsis --publish never",
+    "release": "node tools/release.js"
+  },
+  "build": {
+    "appId": "com.bafoons.tunes",
+    "productName": "BafoonsTunes",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "index.html",
+      "logo.jpg",
+      "css/**",
+      "js/**",
+      "sounds/**",
+      "vendor/**",
+      "electron/**",
+      "build/icon.png",
+      "package.json"
+    ],
+    "win": {
+      "icon": "build/icon.png"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "JohnElricTitor",
+        "repo": "BafoonTunes",
+        "releaseType": "release"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "BafoonsTunes",
+      "artifactName": "BafoonsTunes-Setup-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11"
+  }
+}

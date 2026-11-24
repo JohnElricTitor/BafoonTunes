@@ -1,0 +1,10 @@
+# dependencies and build output
+node_modules/
+dist/
+
+# local tooling
+.claude/
+*.log
+
+# reference photo of the hardware (Akai's product image, not ours to publish)
+gvhos5mlgstjnwd7ymke.jpg

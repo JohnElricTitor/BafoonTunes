@@ -1,0 +1,365 @@
+[
+  {"id": "acoustic-kick", "name": "Kick", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_heavy_kick.flac"}
+  ]},
+  {"id": "acoustic-kick-soft", "name": "Kick (soft)", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_bass_soft.flac"}
+  ]},
+  {"id": "acoustic-snare", "name": "Snare", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_snare_hard.flac"}
+  ]},
+  {"id": "acoustic-snare-soft", "name": "Snare (soft)", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_snare_soft.flac"}
+  ]},
+  {"id": "acoustic-rim", "name": "Cross-stick / rim click", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sgossner/VCSL (mirror: https://github.com/danigb/samples/tree/main/audio/vcsl)", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/vcsl/Struck%20Membranophones/Snare%20Drum%2C%20Modern%202/Snare3M_Xstick_v2_rr1_Mid.m4a"}
+  ]},
+  {"id": "acoustic-clap", "name": "Hand clap", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sgossner/VCSL (mirror: https://github.com/danigb/samples/tree/main/audio/vcsl)", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Claps/Clap_rr1.m4a"}
+  ]},
+  {"id": "acoustic-hat-closed", "name": "Closed hi-hat", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_cymbal_closed.flac"}
+  ]},
+  {"id": "acoustic-hat-pedal", "name": "Pedal hi-hat", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_cymbal_pedal.flac"}
+  ]},
+  {"id": "acoustic-hat-open", "name": "Open hi-hat", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_cymbal_open.flac"}
+  ]},
+  {"id": "acoustic-tom-low", "name": "Low tom", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_tom_lo_hard.flac"}
+  ]},
+  {"id": "acoustic-tom-mid", "name": "Mid tom", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_tom_mid_hard.flac"}
+  ]},
+  {"id": "acoustic-tom-high", "name": "High tom", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_tom_hi_hard.flac"}
+  ]},
+  {"id": "acoustic-crash", "name": "Crash (cymbal hard)", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_cymbal_hard.flac"}
+  ]},
+  {"id": "acoustic-splash", "name": "Splash", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_splash_hard.flac"}
+  ]},
+  {"id": "acoustic-ride", "name": "Ride 22in", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/ride_tri.flac"}
+  ]},
+  {"id": "acoustic-cowbell", "name": "Cowbell", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/drum_cowbell.flac"}
+  ]},
+  {"id": "acoustic-shaker", "name": "Shaker", "category": "drums", "kit": "acoustic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sgossner/VCSL (mirror: https://github.com/danigb/samples/tree/main/audio/vcsl)", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Shaker%2C%20Small/Mid_ShakerDouble_Down_rr1.m4a"}
+  ]},
+  {"id": "electronic-kick", "name": "Kick (tek)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/bd_tek.flac"}
+  ]},
+  {"id": "electronic-kick-808", "name": "Kick (808-style)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/bd_808.flac"}
+  ]},
+  {"id": "electronic-kick-haus", "name": "Kick (house)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/bd_haus.flac"}
+  ]},
+  {"id": "electronic-snare", "name": "Snare (dolf)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/sn_dolf.flac"}
+  ]},
+  {"id": "electronic-snare-elec", "name": "Snare (electric)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_snare.flac"}
+  ]},
+  {"id": "electronic-clap", "name": "Snap (finger snap, used as clap)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/perc_snap.flac"}
+  ]},
+  {"id": "electronic-hat-closed", "name": "Closed hat (electronic)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/hat_star.flac"}
+  ]},
+  {"id": "electronic-hat-closed-2", "name": "Closed hat 2 (electronic)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/hat_gem.flac"}
+  ]},
+  {"id": "electronic-hat-open", "name": "Open hat", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/hat_zan.flac"}
+  ]},
+  {"id": "electronic-tom", "name": "Fuzz tom (pitch for low/high)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_fuzz_tom.flac"}
+  ]},
+  {"id": "electronic-crash", "name": "Electric cymbal", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_cymbal.flac"}
+  ]},
+  {"id": "electronic-rim", "name": "Tick / rim", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_tick.flac"}
+  ]},
+  {"id": "electronic-wood", "name": "Woodblock (electric)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_wood.flac"}
+  ]},
+  {"id": "electronic-triangle", "name": "Triangle (electric)", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_triangle.flac"}
+  ]},
+  {"id": "electronic-perc-blip", "name": "Blip", "category": "drums", "kit": "electronic", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/elec_blip.flac"}
+  ]},
+  {"id": "tr808-kick", "name": "Kick (tune 2.5, decay 7.5)", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/kick/bd2575.m4a"}
+  ]},
+  {"id": "tr808-kick-long", "name": "Kick long (tune 0, decay 10)", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/kick/bd0010.m4a"}
+  ]},
+  {"id": "tr808-snare", "name": "Snare (tone 5, snappy 5)", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/snare/sd5050.m4a"}
+  ]},
+  {"id": "tr808-clap", "name": "Hand clap", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/clap/cp.m4a"}
+  ]},
+  {"id": "tr808-rim", "name": "Rimshot", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/rimshot/rs.m4a"}
+  ]},
+  {"id": "tr808-hat-closed", "name": "Closed hat", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/hihat-close/ch.m4a"}
+  ]},
+  {"id": "tr808-hat-open", "name": "Open hat (decay 5)", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/hihat-open/oh50.m4a"}
+  ]},
+  {"id": "tr808-tom-low", "name": "Low tom", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/tom-low/lt50.m4a"}
+  ]},
+  {"id": "tr808-tom-mid", "name": "Mid tom", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/mid-tom/mt50.m4a"}
+  ]},
+  {"id": "tr808-tom-high", "name": "High tom", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/tom-hi/ht50.m4a"}
+  ]},
+  {"id": "tr808-cymbal", "name": "Cymbal (tone 5, decay 5)", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/cymbal/cy5050.m4a"}
+  ]},
+  {"id": "tr808-cowbell", "name": "Cowbell", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/cowbell/cb.m4a"}
+  ]},
+  {"id": "tr808-clave", "name": "Clave", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/clave/cl.m4a"}
+  ]},
+  {"id": "tr808-maracas", "name": "Maracas", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/maraca/ma.m4a"}
+  ]},
+  {"id": "tr808-conga-low", "name": "Low conga", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/conga-low/lc50.m4a"}
+  ]},
+  {"id": "tr808-conga-mid", "name": "Mid conga", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/conga-mid/mc50.m4a"}
+  ]},
+  {"id": "tr808-conga-high", "name": "High conga", "category": "drums", "kit": "tr808", "type": "oneshot", "license": "NO FORMAL LICENSE - author text says \"ABSOLUTELY FREE\" (Michael Fischer, 1994)", "sourcePage": "https://github.com/danigb/samples/tree/main/audio/drum-machines/TR-808", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/drum-machines/TR-808/conga-hi/hc50.m4a"}
+  ]},
+  {"id": "piano-salamander", "name": "Grand Piano (Salamander, Yamaha C5)", "category": "instruments", "type": "pitched", "license": "CC-BY-3.0", "sourcePage": "https://github.com/Tonejs/audio/blob/master/salamander/README", "files": [
+    {"midi": 33, "url": "https://tonejs.github.io/audio/salamander/A1.mp3"},
+    {"midi": 36, "url": "https://tonejs.github.io/audio/salamander/C2.mp3"},
+    {"midi": 39, "url": "https://tonejs.github.io/audio/salamander/Ds2.mp3"},
+    {"midi": 42, "url": "https://tonejs.github.io/audio/salamander/Fs2.mp3"},
+    {"midi": 45, "url": "https://tonejs.github.io/audio/salamander/A2.mp3"},
+    {"midi": 48, "url": "https://tonejs.github.io/audio/salamander/C3.mp3"},
+    {"midi": 51, "url": "https://tonejs.github.io/audio/salamander/Ds3.mp3"},
+    {"midi": 54, "url": "https://tonejs.github.io/audio/salamander/Fs3.mp3"},
+    {"midi": 57, "url": "https://tonejs.github.io/audio/salamander/A3.mp3"},
+    {"midi": 60, "url": "https://tonejs.github.io/audio/salamander/C4.mp3"},
+    {"midi": 63, "url": "https://tonejs.github.io/audio/salamander/Ds4.mp3"},
+    {"midi": 66, "url": "https://tonejs.github.io/audio/salamander/Fs4.mp3"},
+    {"midi": 69, "url": "https://tonejs.github.io/audio/salamander/A4.mp3"},
+    {"midi": 72, "url": "https://tonejs.github.io/audio/salamander/C5.mp3"},
+    {"midi": 75, "url": "https://tonejs.github.io/audio/salamander/Ds5.mp3"},
+    {"midi": 78, "url": "https://tonejs.github.io/audio/salamander/Fs5.mp3"},
+    {"midi": 81, "url": "https://tonejs.github.io/audio/salamander/A5.mp3"},
+    {"midi": 84, "url": "https://tonejs.github.io/audio/salamander/C6.mp3"}
+  ]},
+  {"id": "epiano-rhodes", "name": "Electric Piano (jRhodes3d, 1977 Rhodes Mk I)", "category": "instruments", "type": "pitched", "license": "CC-BY-4.0", "sourcePage": "https://github.com/sfzinstruments/jlearman.jRhodes3d (mirror: https://github.com/danigb/samples/tree/main/audio/jlearman)", "files": [
+    {"midi": 35, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_035__B1_4.m4a"},
+    {"midi": 40, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_040__E2_4.m4a"},
+    {"midi": 45, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_045__A2_4.m4a"},
+    {"midi": 50, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_050__D3_4.m4a"},
+    {"midi": 55, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_055__G3_4.m4a"},
+    {"midi": 59, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_059__B3_4.m4a"},
+    {"midi": 62, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_062__D4_4.m4a"},
+    {"midi": 65, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_065__F4_4.m4a"},
+    {"midi": 71, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_071__B4_4.m4a"},
+    {"midi": 76, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_076__E5_4.m4a"},
+    {"midi": 81, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_081__A5_4.m4a"},
+    {"midi": 86, "url": "https://danigb.github.io/samples/jlearman/rhodes-mki/jRhodes3d-mono/A_086__D6_4.m4a"}
+  ]},
+  {"id": "bass-electric", "name": "Electric Bass (Karoryfer Growlybass, Squier Jazz)", "category": "instruments", "type": "pitched", "license": "CC0-1.0", "sourcePage": "https://github.com/sfzinstruments/karoryfer.growlybass (mirror: https://github.com/danigb/samples/tree/main/audio/dsmolken/glowlybass)", "files": [
+    {"midi": 25, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/db2_f_rr1.m4a"},
+    {"midi": 28, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/e2_f_rr1.m4a"},
+    {"midi": 30, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/gb2_f_rr1.m4a"},
+    {"midi": 33, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/a2_f_rr1.m4a"},
+    {"midi": 36, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/c3_f_rr1.m4a"},
+    {"midi": 39, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/eb3_f_rr1.m4a"},
+    {"midi": 42, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/gb3_f_rr1.m4a"},
+    {"midi": 45, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/a3_f_rr1.m4a"},
+    {"midi": 48, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/c4_f_rr1.m4a"},
+    {"midi": 51, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/eb4_f_rr1.m4a"},
+    {"midi": 54, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/gb4_f_rr1.m4a"},
+    {"midi": 57, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/a4_f_rr1.m4a"},
+    {"midi": 60, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/c5_f_rr1.m4a"},
+    {"midi": 63, "url": "https://danigb.github.io/samples/dsmolken/glowlybass/sustain/eb5_f_rr1.m4a"}
+  ]},
+  {"id": "bass-synth", "name": "Synth Bass 1 (FluidR3 GM #39)", "category": "instruments", "type": "pitched", "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0", "sourcePage": "https://github.com/gleitz/midi-js-soundfonts", "files": [
+    {"midi": 24, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/C1.mp3"},
+    {"midi": 27, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Eb1.mp3"},
+    {"midi": 30, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Gb1.mp3"},
+    {"midi": 33, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/A1.mp3"},
+    {"midi": 36, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/C2.mp3"},
+    {"midi": 39, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Eb2.mp3"},
+    {"midi": 42, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Gb2.mp3"},
+    {"midi": 45, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/A2.mp3"},
+    {"midi": 48, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/C3.mp3"},
+    {"midi": 51, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Eb3.mp3"},
+    {"midi": 54, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Gb3.mp3"},
+    {"midi": 57, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/A3.mp3"},
+    {"midi": 60, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/C4.mp3"},
+    {"midi": 63, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Eb4.mp3"},
+    {"midi": 66, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/Gb4.mp3"},
+    {"midi": 69, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/A4.mp3"},
+    {"midi": 72, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/synth_bass_1-mp3/C5.mp3"}
+  ]},
+  {"id": "lead-saw", "name": "Saw Lead (FluidR3 GM #82)", "category": "instruments", "type": "pitched", "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0", "sourcePage": "https://github.com/gleitz/midi-js-soundfonts", "files": [
+    {"midi": 36, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/C2.mp3"},
+    {"midi": 39, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Eb2.mp3"},
+    {"midi": 42, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Gb2.mp3"},
+    {"midi": 45, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/A2.mp3"},
+    {"midi": 48, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/C3.mp3"},
+    {"midi": 51, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Eb3.mp3"},
+    {"midi": 54, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Gb3.mp3"},
+    {"midi": 57, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/A3.mp3"},
+    {"midi": 60, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/C4.mp3"},
+    {"midi": 63, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Eb4.mp3"},
+    {"midi": 66, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Gb4.mp3"},
+    {"midi": 69, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/A4.mp3"},
+    {"midi": 72, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/C5.mp3"},
+    {"midi": 75, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Eb5.mp3"},
+    {"midi": 78, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/Gb5.mp3"},
+    {"midi": 81, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/A5.mp3"},
+    {"midi": 84, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/lead_2_sawtooth-mp3/C6.mp3"}
+  ]},
+  {"id": "pad-warm", "name": "Warm Pad (FluidR3 GM #90)", "category": "instruments", "type": "pitched", "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0", "sourcePage": "https://github.com/gleitz/midi-js-soundfonts", "files": [
+    {"midi": 36, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/C2.mp3"},
+    {"midi": 39, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Eb2.mp3"},
+    {"midi": 42, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Gb2.mp3"},
+    {"midi": 45, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/A2.mp3"},
+    {"midi": 48, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/C3.mp3"},
+    {"midi": 51, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Eb3.mp3"},
+    {"midi": 54, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Gb3.mp3"},
+    {"midi": 57, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/A3.mp3"},
+    {"midi": 60, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/C4.mp3"},
+    {"midi": 63, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Eb4.mp3"},
+    {"midi": 66, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Gb4.mp3"},
+    {"midi": 69, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/A4.mp3"},
+    {"midi": 72, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/C5.mp3"},
+    {"midi": 75, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Eb5.mp3"},
+    {"midi": 78, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/Gb5.mp3"},
+    {"midi": 81, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/A5.mp3"},
+    {"midi": 84, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/pad_2_warm-mp3/C6.mp3"}
+  ]},
+  {"id": "strings", "name": "String Ensemble (FluidR3 GM #49)", "category": "instruments", "type": "pitched", "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0", "sourcePage": "https://github.com/gleitz/midi-js-soundfonts", "files": [
+    {"midi": 36, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/C2.mp3"},
+    {"midi": 39, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Eb2.mp3"},
+    {"midi": 42, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Gb2.mp3"},
+    {"midi": 45, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/A2.mp3"},
+    {"midi": 48, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/C3.mp3"},
+    {"midi": 51, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Eb3.mp3"},
+    {"midi": 54, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Gb3.mp3"},
+    {"midi": 57, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/A3.mp3"},
+    {"midi": 60, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/C4.mp3"},
+    {"midi": 63, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Eb4.mp3"},
+    {"midi": 66, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Gb4.mp3"},
+    {"midi": 69, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/A4.mp3"},
+    {"midi": 72, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/C5.mp3"},
+    {"midi": 75, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Eb5.mp3"},
+    {"midi": 78, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/Gb5.mp3"},
+    {"midi": 81, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/A5.mp3"},
+    {"midi": 84, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/string_ensemble_1-mp3/C6.mp3"}
+  ]},
+  {"id": "organ-drawbar", "name": "Drawbar Organ (FluidR3 GM #17)", "category": "instruments", "type": "pitched", "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0", "sourcePage": "https://github.com/gleitz/midi-js-soundfonts", "files": [
+    {"midi": 36, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/C2.mp3"},
+    {"midi": 39, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Eb2.mp3"},
+    {"midi": 42, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Gb2.mp3"},
+    {"midi": 45, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/A2.mp3"},
+    {"midi": 48, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/C3.mp3"},
+    {"midi": 51, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Eb3.mp3"},
+    {"midi": 54, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Gb3.mp3"},
+    {"midi": 57, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/A3.mp3"},
+    {"midi": 60, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/C4.mp3"},
+    {"midi": 63, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Eb4.mp3"},
+    {"midi": 66, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Gb4.mp3"},
+    {"midi": 69, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/A4.mp3"},
+    {"midi": 72, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/C5.mp3"},
+    {"midi": 75, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Eb5.mp3"},
+    {"midi": 78, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/Gb5.mp3"},
+    {"midi": 81, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/A5.mp3"},
+    {"midi": 84, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/drawbar_organ-mp3/C6.mp3"}
+  ]},
+  {"id": "guitar-nylon", "name": "Nylon Guitar (FluidR3 GM #25)", "category": "instruments", "type": "pitched", "license": "MIT (FluidR3 GM, Frank Wen); gleitz README labels renders CC-BY-3.0", "sourcePage": "https://github.com/gleitz/midi-js-soundfonts", "files": [
+    {"midi": 36, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/C2.mp3"},
+    {"midi": 39, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Eb2.mp3"},
+    {"midi": 42, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Gb2.mp3"},
+    {"midi": 45, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/A2.mp3"},
+    {"midi": 48, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/C3.mp3"},
+    {"midi": 51, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Eb3.mp3"},
+    {"midi": 54, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Gb3.mp3"},
+    {"midi": 57, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/A3.mp3"},
+    {"midi": 60, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/C4.mp3"},
+    {"midi": 63, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Eb4.mp3"},
+    {"midi": 66, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Gb4.mp3"},
+    {"midi": 69, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/A4.mp3"},
+    {"midi": 72, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/C5.mp3"},
+    {"midi": 75, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Eb5.mp3"},
+    {"midi": 78, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/Gb5.mp3"},
+    {"midi": 81, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/A5.mp3"},
+    {"midi": 84, "url": "https://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/acoustic_guitar_nylon-mp3/C6.mp3"}
+  ]},
+  {"id": "marimba", "name": "Marimba (VCSL)", "category": "instruments", "type": "pitched", "license": "CC0-1.0", "sourcePage": "https://github.com/sgossner/VCSL (mirror: https://github.com/danigb/samples/tree/main/audio/vcsl)", "files": [
+    {"midi": 41, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_F1_med_01.m4a"},
+    {"midi": 48, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_C2_med_01.m4a"},
+    {"midi": 55, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_G2_med_01.m4a"},
+    {"midi": 59, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_B2_med_01.m4a"},
+    {"midi": 65, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_F3_med_01.m4a"},
+    {"midi": 72, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_C4_med_01.m4a"},
+    {"midi": 79, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_G4_med_01.m4a"},
+    {"midi": 83, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_B4_med_01.m4a"},
+    {"midi": 89, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_F5_med_01.m4a"},
+    {"midi": 96, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Marimba/Marimba_hit_Outrigger_C6_med_01.m4a"}
+  ]},
+  {"id": "vibraphone", "name": "Vibraphone, hard mallets (VCSL)", "category": "instruments", "type": "pitched", "license": "CC0-1.0", "sourcePage": "https://github.com/sgossner/VCSL (mirror: https://github.com/danigb/samples/tree/main/audio/vcsl)", "files": [
+    {"midi": 53, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_F2_v2_rr1_Main.m4a"},
+    {"midi": 57, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_A2_v2_rr1_Main.m4a"},
+    {"midi": 60, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_C3_v2_rr1_Main.m4a"},
+    {"midi": 64, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_E3_v2_rr1_Main.m4a"},
+    {"midi": 67, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_G3_v2_rr1_Main.m4a"},
+    {"midi": 71, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_B3_v2_rr1_Main.m4a"},
+    {"midi": 74, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_D4_v2_rr1_Main.m4a"},
+    {"midi": 77, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_F4_v2_rr1_Main.m4a"},
+    {"midi": 81, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_A4_v2_rr1_Main.m4a"},
+    {"midi": 84, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_C5_v2_rr1_Main.m4a"},
+    {"midi": 88, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Vibraphone/Hard%20Mallets/Vibes_hard_E5_v2_rr1_Main.m4a"}
+  ]},
+  {"id": "fx-vinyl-scratch", "name": "Vinyl scratch", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/vinyl_scratch.flac"}
+  ]},
+  {"id": "fx-vinyl-backspin", "name": "Vinyl backspin", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/vinyl_backspin.flac"}
+  ]},
+  {"id": "fx-vinyl-rewind", "name": "Vinyl rewind", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/vinyl_rewind.flac"}
+  ]},
+  {"id": "fx-vinyl-hiss", "name": "Vinyl hiss (loopable bed)", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/vinyl_hiss.flac"}
+  ]},
+  {"id": "fx-impact-boom", "name": "Cinematic boom / impact", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/misc_cineboom.flac"}
+  ]},
+  {"id": "fx-impact", "name": "Impact", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/perc_impact1.flac"}
+  ]},
+  {"id": "fx-swoosh", "name": "Swoosh", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/perc_swoosh.flac"}
+  ]},
+  {"id": "fx-dark-whoosh", "name": "Dark whoosh", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sonic-pi-net/sonic-pi/blob/dev/etc/samples/README.md", "files": [
+    {"midi": null, "url": "https://raw.githubusercontent.com/sonic-pi-net/sonic-pi/dev/etc/samples/ambi_dark_woosh.flac"}
+  ]},
+  {"id": "fx-riser-cymbal", "name": "Cymbal swell 4s (riser)", "category": "fx", "type": "oneshot", "license": "CC0-1.0", "sourcePage": "https://github.com/sgossner/VCSL (mirror: https://github.com/danigb/samples/tree/main/audio/vcsl)", "files": [
+    {"midi": null, "url": "https://danigb.github.io/samples/vcsl/Struck%20Idiophones/Suspended%20Cymbal%201/susCymb1_cresc_4s.m4a"}
+  ]}
+]

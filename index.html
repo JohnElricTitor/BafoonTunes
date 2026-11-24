@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src blob:">
+
+  <title>BafoonsTunes</title>
+  <link rel="icon" href="logo.jpg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><img class="brand-logo" src="logo.jpg" alt="BafoonsTunes"><span class="brand-name">BafoonsTunes</span></div>
+      <input id="songName" class="song-name" spellcheck="false" title="Song name" maxlength="60">
+
+      <div class="transport">
+        <button id="btnStop" class="tbtn" title="Stop (Space)" aria-label="Stop">
+          <svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+        </button>
+        <button id="btnPlay" class="tbtn play" title="Play / Stop (Space)" aria-label="Play">
+          <svg viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+        </button>
+        <button id="btnRec" class="tbtn rec" title="Record a take (R)" aria-label="Record">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>
+        </button>
+        <div id="clock" class="clock" title="Bar . Beat">1.1</div>
+      </div>
+
+      <div class="settings">
+        <label class="field" title="Tempo (beats per minute)">BPM
+          <input id="bpm" type="number" min="40" max="240" step="1" value="90">
+        </label>
+        <label class="field" title="How long each recorded loop is">Loop
+          <select id="bars">
+            <option value="1">1 bar</option>
+            <option value="2">2 bars</option>
+            <option value="4">4 bars</option>
+            <option value="8">8 bars</option>
+          </select>
+        </label>
+        <label class="field" title="Snap: tidy the timing of recorded notes by moving each one to the nearest 1/8 or 1/16 beat. Off keeps your timing exactly as played. Applies to new recordings.">Snap
+          <select id="quant">
+            <option value="0">Off</option>
+            <option value="8">1/8</option>
+            <option value="16">1/16</option>
+          </select>
+        </label>
+        <button id="btnMetro" class="toggle" title="Metronome click (M)">Click</button>
+        <button id="btnCount" class="toggle" title="Count in one bar before recording">Count-in</button>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div id="midiStatus" class="midi-status" title="MIDI controller status">
+        <span class="dot"></span><span class="label">Not connected</span>
+      </div>
+      <button id="btnCalibrate" class="btn small" title="Re-learn your MPK: tap each pad, then press the far-left key">Calibrate</button>
+
+      <div class="file-btns">
+        <button id="btnNew" class="btn">New</button>
+        <button id="btnOpen" class="btn">Open</button>
+        <button id="btnSave" class="btn" title="Save (Ctrl+S)">Save</button>
+        <button id="btnExport" class="btn primary">Export</button>
+        <button id="btnHelp" class="btn icon" title="Help &amp; credits" aria-label="Help">?</button>
+      </div>
+    </header>
+
+    <aside class="library">
+      <div class="lib-head">
+        <div class="lib-title">
+          <h2>Sounds</h2>
+          <button id="btnImport" class="btn small" title="Add your own sounds: audio files, folders or .zip sample packs">+ Import</button>
+        </div>
+        <input id="search" type="search" placeholder="Search sounds…" autocomplete="off">
+      </div>
+      <div class="lib-list" id="libList"></div>
+      <div class="lib-foot">Click to hear · drag onto a pad, key or the KEYS strip · drag a title onto the pads to fill them · drop files here to import</div>
+    </aside>
+
+    <main class="stage">
+      <section class="timeline" id="timeline"></section>
+      <section class="device">
+        <div id="teachBar" class="teach-bar hidden" role="status">
+          <span class="teach-pulse"></span>
+          <div class="teach-text">
+            <b id="teachTitle"></b>
+            <span id="teachSub" class="muted small"></span>
+          </div>
+          <span id="teachHeard" class="teach-heard"></span>
+          <button class="btn small" id="teachSkip">Skip bank B</button>
+          <button class="btn small" id="teachCancel">Cancel</button>
+        </div>
+        <div class="mpk" id="mpk"></div>
+        <div class="kbd-hint">
+          <span><kbd>A</kbd>–<kbd>;</kbd> play keys</span>
+          <span><kbd>Z</kbd>/<kbd>X</kbd> octave</span>
+          <span><kbd>1</kbd>–<kbd>8</kbd> pads</span>
+          <span><kbd>Space</kbd> play</span>
+          <span><kbd>R</kbd> record</span>
+          <span>Right-click a pad, key or knob for more</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Welcome -->
+  <div id="welcome" class="overlay">
+    <div class="welcome-card">
+      <img class="welcome-logo" src="logo.jpg" alt="BafoonsTunes logo">
+      <h1>BafoonsTunes</h1>
+      <p>Plug in your MPK mini, then press start.</p>
+      <button id="btnStart" class="btn primary big">Start making music</button>
+      <p id="loadMsg" class="muted small">Loading sounds…</p>
+    </div>
+  </div>
+
+  <!-- Export dialog -->
+  <div id="exportDlg" class="overlay hidden">
+    <div class="dialog">
+      <h2>Export your song</h2>
+      <label class="row">File name <input id="expName" type="text"></label>
+      <div class="row">Format
+        <div class="seg" id="expFormat">
+          <button data-v="mp3" class="on">MP3</button>
+          <button data-v="wav">WAV</button>
+        </div>
+      </div>
+      <div class="row">Length
+        <div class="seg" id="expLoops">
+          <button data-v="1">1×</button>
+          <button data-v="2" class="on">2×</button>
+          <button data-v="4">4×</button>
+          <button data-v="8">8×</button>
+        </div>
+      </div>
+      <p class="muted small" id="expInfo"></p>
+      <div class="progress hidden" id="expProgress"><div></div></div>
+      <div class="dialog-actions">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn primary" id="expGo">Export</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import dialog -->
+  <div id="importDlg" class="overlay hidden">
+    <div class="dialog">
+      <h2>Import your sounds</h2>
+      <div class="dropzone" id="importDrop">
+        <b>Drop audio files, folders or .zip packs here</b>
+        <span class="muted small">WAV, MP3, AIFF, FLAC, OGG and M4A. Sample packs made for FL Studio, Ableton, Reaper and other DAWs work when they contain audio files.</span>
+      </div>
+      <div class="import-btns">
+        <button class="btn" id="impFiles">Choose files or .zip…</button>
+        <button class="btn" id="impFolder">Choose a folder…</button>
+      </div>
+      <div class="progress hidden" id="impProgress"><div></div></div>
+      <p class="small" id="impStatus"></p>
+      <p class="muted small" id="impStorage"></p>
+      <button class="btn small hidden" id="impReveal">Open sounds folder</button>
+      <div class="dialog-actions"><button class="btn" data-close>Close</button></div>
+    </div>
+  </div>
+  <input type="file" id="impFilesInput" multiple accept="audio/*,.wav,.mp3,.aif,.aiff,.aifc,.flac,.ogg,.m4a,.opus,.zip" hidden>
+  <input type="file" id="impFolderInput" webkitdirectory multiple hidden>
+
+  <!-- Help dialog -->
+  <div id="helpDlg" class="overlay hidden">
+    <div class="dialog wide">
+      <h2>How BafoonsTunes works</h2>
+      <ol class="help-list">
+        <li><b>Pick sounds.</b> Drag an instrument from the left onto the keyboard, or drag a drum onto a pad. Drag a whole kit onto the pads to fill all 8 at once.</li>
+        <li><b>Play.</b> Use your MPK mini, click the pads and keys, or use your computer keyboard.</li>
+        <li><b>Record.</b> Press <b>●</b>. You get a one-bar count-in, then one loop is recorded. Each take becomes a track that keeps looping, so you can layer drums, then bass, then melody.</li>
+        <li><b>Mix.</b> Each track has mute (M), solo (S) and a volume slider. The knobs K1–K8 shape the overall sound.</li>
+        <li><b>Keep it.</b> Save writes a <code>.tunes</code> project file you can open later. Export makes an MP3 or WAV of your loop.</li>
+      </ol>
+      <h3>Knobs</h3>
+      <p class="muted small">K1 Vibrato (also the joystick up) · K2 Keys volume · K3 Pads volume · K4 Master volume · K5 Tone · K6 Reverb · K7 Echo · K8 Release (how long keys ring). Double-click a knob to reset it. Right-click a knob, then turn a knob on your MPK to link them.</p>
+      <h3>Your MPK mini</h3>
+      <p class="muted small">If the keys on screen don't line up with your MPK (for example after using its OCTAVE buttons), click <b>Match keys</b> above the on-screen keyboard and press the far-left key on your MPK. If pads show up as keys or land on the wrong pad, click <b>Calibrate</b> at the top: tap each pad once, then press the far-left key. <b>Reset MPK settings</b> forgets everything learned (pads, octave, knob links) and starts fresh.</p>
+      <div class="help-btns">
+        <button class="btn" id="btnPadSetup">Calibrate MPK</button>
+        <button class="btn" id="btnMidiReset" title="Forget the learned pads, octave and knob links, then calibrate from scratch">Reset MPK settings</button>
+      </div>
+      <h3>MIDI monitor</h3>
+      <p class="muted small">Shows what your MPK sends, newest at the top. Press, turn or hit anything to see it here.</p>
+      <pre id="midiLog" class="midi-log">Nothing yet. Press something on your MPK.</pre>
+      <div class="app-version hidden" id="appVersionRow">
+        <h3>Updates</h3>
+        <div class="help-btns">
+          <span class="muted small" id="appVersion"></span>
+          <button class="btn small" id="btnUpdate">Check for updates</button>
+        </div>
+      </div>
+      <h3>Sound credits</h3>
+      <div id="credits" class="credits muted small"></div>
+      <div class="dialog-actions"><button class="btn primary" data-close>Got it</button></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
